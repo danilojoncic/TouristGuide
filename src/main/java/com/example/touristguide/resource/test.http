@@ -42,6 +42,7 @@ Accept: application/json
 ###
 GET http://localhost:8080/TouristGuide_war_exploded/api/destination
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdG5hbWUiOiJXcml0ZXIiLCJ0aXAiOiJlZGl0b3IiLCJsYXN0bmFtZSI6Ik1jV3JpdHRpbmcifQ.HRh5SQwcBREsVgJF86xDnl3I31yWir4yj_ZgDWpNvQE
 
 ###
 PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2

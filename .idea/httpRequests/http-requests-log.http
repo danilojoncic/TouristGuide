@@ -1,3 +1,35 @@
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdG5hbWUiOiJXcml0ZXIiLCJ0aXAiOiJlZGl0b3IiLCJsYXN0bmFtZSI6Ik1jV3JpdHRpbmcifQ.HRh5SQwcBREsVgJF86xDnl3I31yWir4yj_ZgDWpNvQE
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T211231.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T211229.401.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmaXJzdG5hbWUiOiJXcml0ZXIiLCJ0aXAiOiJlZGl0b3IiLCJsYXN0bmFtZSI6Ik1jV3JpdHRpbmcifQ.HRh5SQwcBREsVgJF86xDnl3I31yWir4yj_ZgDWpNvQE
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T211222.200.json
+
+###
+
 GET http://localhost:8080/TouristGuide_war_exploded/api/activity/1
 Accept: application/json
 Connection: Keep-Alive
@@ -597,42 +629,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2024-05-18T030016.200.json
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/activity
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T025825.200.json
-
-###
-
-PUT http://localhost:8080/TouristGuide_war_exploded/api/activity/5
-Content-Type: application/json
-Content-Length: 22
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "tag": "Diving"
-
-}
-
-<> 2024-05-18T025821.200.txt
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/activity
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T025759.200.json
 
 ###
 
