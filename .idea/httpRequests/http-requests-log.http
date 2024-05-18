@@ -1,0 +1,514 @@
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T030024.200.json
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/activity/5
+Content-Type: application/json
+Content-Length: 22
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag": "Diving"
+
+}
+
+<> 2024-05-18T030022.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T030016.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025825.200.json
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/activity/5
+Content-Type: application/json
+Content-Length: 22
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag": "Diving"
+
+}
+
+<> 2024-05-18T025821.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025759.200.json
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/activity/6
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025754.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025744.200.json
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/activity/7
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025740.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025732.200.json
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/activity
+Content-Type: application/json
+Content-Length: 31
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag" : "Sample activity"
+}
+
+<> 2024-05-18T025729.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025714.200.json
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/activity
+Content-Type: application/json
+Content-Length: 23
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag" : "Running"
+}
+
+<> 2024-05-18T025710.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025654.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity/1
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025651.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025559.200.json
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/destination/8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025554.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025543.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025236.200.json
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/activity/2
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025232.200.txt
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025213.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025200.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity/1
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025148.200.json
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/activity/2
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T025139.200.txt
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/activity
+Content-Type: application/json
+Content-Length: 23
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag" : "Running"
+}
+
+<> 2024-05-18T025125.200.txt
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/activity
+Content-Type: application/json
+Content-Length: 23
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tag" : "Running"
+}
+
+<> 2024-05-18T025003.500.html
+
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/destination/6
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T021410.200.txt
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T021341.200.txt
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T021144.500.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T020732.500.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T020517.500.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 55
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Paris",
+  "description": "City of light"
+}
+
+<> 2024-05-18T020430.500.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T020419.200.json
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Content-Type: application/json
+Content-Length: 90
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Updated Post Title",
+  "description": "This is an updated post description"
+}
+
+<> 2024-05-18T020404.200.txt
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 55
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Paris",
+  "description": "City of light"
+}
+
+<> 2024-05-18T020314.500.html
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+Content-Length: 90
+Content-Type: */*; charset=UTF-8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Updated Post Title",
+  "description": "This is an updated post description"
+}
+
+<> 2024-05-18T020129.415.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T020125.200.json
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+Content-Length: 90
+Content-Type: */*; charset=UTF-8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name": "Updated Post Title",
+  "description": "This is an updated post description"
+}
+
+<> 2024-05-18T020054.415.html
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+Content-Length: 91
+Content-Type: */*; charset=UTF-8
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "title": "Updated Post Title",
+  "description": "This is an updated post description"
+}
+
+<> 2024-05-18T020040.415.html
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+{:
+  "title": "Updated Post Title",
+  "description": "This is an updated post description"
+}:
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T020027.400.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination/1
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T015853.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-18T015831.200.json
+
+###
+

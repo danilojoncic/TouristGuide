@@ -1,0 +1,62 @@
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+###
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/destination/8
+
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Accept: application/json
+
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+Accept: application/json
+
+###
+PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
+Content-Type: application/json
+
+{
+  "name": "Updated Post Title",
+  "description": "This is an updated post description"
+}
+
+
+
+###
+POST http://localhost:8080/TouristGuide_war_exploded/api/activity
+Content-Type: application/json
+
+{
+  "tag" : "Sample activity"
+}
+
+###
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/activity/6
+
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity/1
+Accept: application/json
+
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+Accept: application/json
+
+###
+PUT http://localhost:8080/TouristGuide_war_exploded/api/activity/5
+Content-Type: application/json
+
+{
+  "tag": "Diving"
+
+}
+
+
+
+
+
