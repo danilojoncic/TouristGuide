@@ -5,11 +5,15 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.touristguide.dto.UserJWTResponse;
 import com.example.touristguide.dto.UserLoginDto;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class JWTCoder {
 
 
-    private static final String SECRET_KEY = "super duper tajna sifra";
-
+    public static final String SECRET_KEY = "super duper tajna sifra";
 
     /**
      * Uzima pruzene podatke i od njih pakuje jwt token
@@ -33,17 +37,4 @@ public class JWTCoder {
             return null;
         }
     }
-
-
-    /**
-     * Uzima pruzeni jwt token i provjerava njegovu valjanjost
-     * provjerava da li je uloga korisnika dobra
-     * @param token jwt token koji dobijamo kao header svakog api request koji radi neku CMS radnju
-     * @return vracamo true ako je token za korisnika valjan, u suprotnom vracamo false
-     */
-    public static boolean decode(String token){
-        return true;
-    }
-
-
 }

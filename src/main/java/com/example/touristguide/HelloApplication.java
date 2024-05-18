@@ -1,5 +1,6 @@
 package com.example.touristguide;
 
+import com.example.touristguide.filter.JWTTokenFilter;
 import com.example.touristguide.repository.activity.ActivityRepo;
 import com.example.touristguide.repository.activity.ActivityRepoInteface;
 import com.example.touristguide.repository.destination.DestinationRepo;
@@ -22,6 +23,9 @@ public class HelloApplication extends ResourceConfig {
 
     public HelloApplication() {
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+
+        register(JWTTokenFilter.class);
+
         AbstractBinder binder = new AbstractBinder() {
             @Override
             protected void configure() {
