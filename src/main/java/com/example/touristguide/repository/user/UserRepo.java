@@ -69,7 +69,7 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM user");
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 UserTableDto userTableDto = new UserTableDto();
                 userTableDto.setFirstname(resultSet.getString("firstname"));
                 userTableDto.setLastname(resultSet.getString("lastname"));
