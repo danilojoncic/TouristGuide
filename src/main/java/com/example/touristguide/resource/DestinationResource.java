@@ -44,14 +44,18 @@ public class DestinationResource {
     @Path("/{id}")
     public Response deleteDestination(@PathParam("id")Integer id){
         destinationService.delete(id);
-        return Response.ok("This destinations has been deleted!").build();
+        return Response.ok("This destinations with id: " + id + " has been deleted!").build();
     }
 
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addDestination(@Valid CreateDestinationDTO createDestinationDTO){
-        destinationService.add(createDestinationDTO);
-        return Response.ok("New destination has been added").build();
+        if(destinationService.add(createDestinationDTO)){
+            return Response.ok("New destination with name " + createDestinationDTO.getName() + " has been added").build();
+        }else{
+            //406 je not acceptable
+            return Response.status(406).build();
+        }
     }
 }

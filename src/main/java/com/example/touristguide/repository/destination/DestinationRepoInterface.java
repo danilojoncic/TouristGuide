@@ -11,4 +11,6 @@ public interface DestinationRepoInterface {
     void deleteDestination(int destination_id);
     Destination getDestination(int destination_id);
     List<Destination> getAllDestinations();
+
+    Destination findByName(String name);
 }

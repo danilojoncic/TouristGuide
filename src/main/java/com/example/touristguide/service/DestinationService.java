@@ -11,8 +11,14 @@ public class DestinationService {
     @Inject
     DestinationRepoInterface destinationRepoInterface;
 
-    public void add(CreateDestinationDTO createDestinationDTO){
-        destinationRepoInterface.addDestination(createDestinationDTO);
+    public boolean add(CreateDestinationDTO createDestinationDTO){
+        //provjeri da li destinacija sa takvim imenom vec postoji u bazi
+        if(destinationRepoInterface.findByName(createDestinationDTO.getName()) == null){
+            destinationRepoInterface.addDestination(createDestinationDTO);
+            //ako ne postoji false u suprotnom true
+            return true;
+        }
+        return false;
     }
 
 

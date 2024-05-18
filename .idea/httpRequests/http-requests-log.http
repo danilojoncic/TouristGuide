@@ -1,3 +1,51 @@
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T145817.406.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 56
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Pais",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T145635.406.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/destination
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "name" : "Paris",
+  "description" : "City of light"
+}
+
+<> 2024-05-18T145533.200.txt
+
+###
+
 GET http://localhost:8080/TouristGuide_war_exploded/api/activity
 Accept: application/json
 Connection: Keep-Alive

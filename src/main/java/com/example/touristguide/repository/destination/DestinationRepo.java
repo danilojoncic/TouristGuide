@@ -123,4 +123,31 @@ public class DestinationRepo extends MDBRepository implements DestinationRepoInt
         }
         return destinations;
     }
+
+    @Override
+    public Destination findByName(String name) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Destination destination = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM destination WHERE name = ?");
+            preparedStatement.setString(1, name);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                destination = new Destination();
+                destination.setDestination_id(resultSet.getInt("destination_id"));
+                destination.setName(resultSet.getString("name"));
+                destination.setDescription(resultSet.getString("description"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeResultSet(resultSet);
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+        return destination;
+    }
 }
