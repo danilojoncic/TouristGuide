@@ -7,6 +7,17 @@ Content-Type: application/json
   "password": "password"
 }
 ###
+POST http://localhost:8080/TouristGuide_war_exploded/api/user
+Content-Type: application/json
+
+{
+  "firstname":"Danilo",
+  "lastname": "Joncic",
+  "tip": "admin",
+  "email" : "mail@email.com",
+  "password": "pass"
+}
+###
 POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
 Content-Type: application/json
 

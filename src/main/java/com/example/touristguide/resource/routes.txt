@@ -1,0 +1,124 @@
+Login
+
+Route: POST /api/auth/login
+Description: Authenticates a user and returns a JWT token.
+JWT Required: No
+User Management (Administrator Only)
+
+Create User
+Route: POST /api/users
+Description: Creates a new user (admin or content editor).
+JWT Required: Yes (Admin)
+
+List Users
+Route: GET /api/users
+Description: Lists all users.
+JWT Required: Yes (Admin)
+
+Update User
+Route: PUT /api/users/{id}
+Description: Updates user information.
+JWT Required: Yes (Admin)
+
+Activate/Deactivate User
+Route: PATCH /api/users/{id}/status
+Description: Activates or deactivates a content editor.
+JWT Required: Yes (Admin)
+
+Destination Management
+Destinations (Content Editor and Admin)
+
+List Destinations
+Route: GET /api/destinations
+Description: Lists all destinations.
+JWT Required: Yes (Content Editor, Admin)
+
+Create Destination
+Route: POST /api/destinations
+Description: Creates a new destination.
+JWT Required: Yes (Content Editor, Admin)
+
+Update Destination
+Route: PUT /api/destinations/{id}
+Description: Updates destination details.
+JWT Required: Yes (Content Editor, Admin)
+
+Delete Destination
+Route: DELETE /api/destinations/{id}
+Description: Deletes a destination if no articles are associated.
+JWT Required: Yes (Content Editor, Admin)
+
+Article Management
+Articles (Content Editor and Admin)
+
+List Articles
+Route: GET /api/articles
+Description: Lists all articles, with optional filters for destination and activity.
+JWT Required: Yes (Content Editor, Admin)
+
+Create Article
+Route: POST /api/articles
+Description: Creates a new article.
+JWT Required: Yes (Content Editor, Admin)
+
+Update Article
+Route: PUT /api/articles/{id}
+Description: Updates article details.
+JWT Required: Yes (Content Editor, Admin)
+
+Delete Article
+Route: DELETE /api/articles/{id}
+Description: Deletes an article.
+JWT Required: Yes (Content Editor, Admin)
+Public Platform for Reading Articles
+Public Articles
+
+List Latest Articles
+Route: GET /api/public/articles/latest
+Description: Lists the 10 latest articles.
+JWT Required: No
+List Most Read Articles
+Route: GET /api/public/articles/most-read
+Description: Lists the 10 most read articles in the past 30 days.
+JWT Required: No
+List Articles by Destination
+Route: GET /api/public/destinations/{id}/articles
+Description: Lists articles for a specific destination.
+JWT Required: No
+List Articles by Activity
+Route: GET /api/public/activities/{name}/articles
+Description: Lists articles by activity.
+JWT Required: No
+Get Article
+Route: GET /api/public/articles/{id}
+Description: Gets details of a specific article, including comments.
+JWT Required: No
+Comments
+
+List Comments for Article
+Route: GET /api/public/articles/{id}/comments
+Description: Lists comments for a specific article.
+JWT Required: No
+Add Comment to Article
+Route: POST /api/public/articles/{id}/comments
+Description: Adds a new comment to an article.
+JWT Required: No
+JWT Protected Paths
+Here’s a summary of the routes that need JWT protection, based on user roles:
+
+Content Editor and Admin
+
+GET /api/destinations
+POST /api/destinations
+PUT /api/destinations/{id}
+DELETE /api/destinations/{id}
+GET /api/articles
+POST /api/articles
+PUT /api/articles/{id}
+DELETE /api/articles/{id}
+Admin Only
+
+POST /api/users
+GET /api/users
+PUT /api/users/{id}
+PATCH /api/users/{id}/status

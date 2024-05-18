@@ -2,10 +2,13 @@ package com.example.touristguide.service;
 
 import com.example.touristguide.domain.user.Status;
 import com.example.touristguide.domain.user.User;
+import com.example.touristguide.dto.CreateUserDto;
 import com.example.touristguide.dto.UserLoginDto;
+import com.example.touristguide.dto.UserTableDto;
 import com.example.touristguide.repository.user.UserRepoInterface;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class UserService {
     @Inject private UserRepoInterface userRepoInterface;
@@ -22,4 +25,16 @@ public class UserService {
     public User login(UserLoginDto userLoginDto){
         return userRepoInterface.findUserByLogin(userLoginDto);
     }
+
+    //kasnije dodati provjeru dodavanja duplikata
+    public void addUser(CreateUserDto createUserDto){
+        userRepoInterface.addUser(createUserDto);
+    }
+
+
+    public List<UserTableDto> getAllUsersInTable(){
+        return userRepoInterface.getAllUsers();
+    }
+
+
 }
