@@ -3,15 +3,17 @@ package com.example.touristguide.domain.user;
 public class User {
     private int user_id;
     private String email;
-    private String username;
+    private String firstname;
+    private String lastname;
     private Tip tip;
     private Status status;
     private String password;
 
-    public User(int user_id, String email, String username, Tip tip, Status status, String password) {
+    public User(int user_id, String email, String firstname, String lastname, Tip tip, Status status, String password) {
         this.user_id = user_id;
         this.email = email;
-        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.tip = tip;
         this.status = status;
         this.password = password;
@@ -24,6 +26,22 @@ public class User {
         return user_id;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
@@ -34,14 +52,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Tip getTip() {

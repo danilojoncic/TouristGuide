@@ -1,3 +1,28 @@
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+
+{
+  "email" : "samplemail.com",
+  "password": "unEncryptedPassword"
+}
+###
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+
+{
+  "email" : "writer@mail.com",
+  "password": "written"
+}
+###
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+
+{
+  "email" : "blocked@mail.com",
+  "password": "badsport"
+}
+
+###
 POST http://localhost:8080/TouristGuide_war_exploded/api/destination
 Content-Type: application/json
 
@@ -55,6 +80,10 @@ Content-Type: application/json
   "tag": "Diving"
 
 }
+###
+
+
+
 
 
 

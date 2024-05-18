@@ -1,3 +1,179 @@
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 58
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "writer@mail.com",
+  "password": "written"
+}
+
+<> 2024-05-18T193823.200.json
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 69
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "samplemail.com",
+  "password": "unEncryptedPassword"
+}
+
+<> 2024-05-18T193815.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 60
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "blocked@mail.com",
+  "password": "badsport"
+}
+
+<> 2024-05-18T193759.401.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": "unEncryptedPassword"
+}
+
+<> 2024-05-18T193737.200.json
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 58
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "writer@mail.com",
+  "password": "written"
+}
+
+<> 2024-05-18T193730.200.json
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 72
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T193442.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 72
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T193217.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 72
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T192441.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 72
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T191754.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 67
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "e@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T191654.404.html
+
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
+Content-Type: application/json
+Content-Length: 72
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "email" : "sample@gmail.com",
+  "password": " unEncryptedPassword"
+}
+
+<> 2024-05-18T191513.404.html
+
+###
+
 POST http://localhost:8080/TouristGuide_war_exploded/api/destination
 Content-Type: application/json
 Content-Length: 57
@@ -478,85 +654,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2024-05-18T020129.415.html
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination/2
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T020125.200.json
-
-###
-
-PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
-Accept: application/json
-Content-Length: 90
-Content-Type: */*; charset=UTF-8
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "name": "Updated Post Title",
-  "description": "This is an updated post description"
-}
-
-<> 2024-05-18T020054.415.html
-
-###
-
-PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
-Accept: application/json
-Content-Length: 91
-Content-Type: */*; charset=UTF-8
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Updated Post Title",
-  "description": "This is an updated post description"
-}
-
-<> 2024-05-18T020040.415.html
-
-###
-
-PUT http://localhost:8080/TouristGuide_war_exploded/api/destination/2
-Accept: application/json
-{:
-  "title": "Updated Post Title",
-  "description": "This is an updated post description"
-}:
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T020027.400.html
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination/1
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T015853.200.json
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T015831.200.json
 
 ###
 
