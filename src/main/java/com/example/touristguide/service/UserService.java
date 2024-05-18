@@ -5,6 +5,7 @@ import com.example.touristguide.domain.user.User;
 import com.example.touristguide.dto.CreateUserDto;
 import com.example.touristguide.dto.UserLoginDto;
 import com.example.touristguide.dto.UserTableDto;
+import com.example.touristguide.dto.UserUpdateDto;
 import com.example.touristguide.repository.user.UserRepoInterface;
 
 import javax.inject.Inject;
@@ -36,5 +37,19 @@ public class UserService {
         return userRepoInterface.getAllUsers();
     }
 
+    public void delete(int user_id){
+        userRepoInterface.deleteUser(user_id);
+    }
 
+    public UserUpdateDto findById(int user_id){
+        return userRepoInterface.findUserById(user_id);
+    }
+
+    public void edit(int user_id,UserUpdateDto userUpdateDto){
+        userRepoInterface.editUser(user_id,userUpdateDto);
+    }
+
+    public void changeStatus(int user_id, String status){
+        userRepoInterface.changeStatus(user_id,status);
+    }
 }

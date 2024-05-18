@@ -6,6 +6,7 @@ import com.example.touristguide.domain.user.User;
 import com.example.touristguide.dto.CreateUserDto;
 import com.example.touristguide.dto.UserLoginDto;
 import com.example.touristguide.dto.UserTableDto;
+import com.example.touristguide.dto.UserUpdateDto;
 import com.example.touristguide.repository.MDBRepository;
 
 import java.sql.Connection;
@@ -25,7 +26,6 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
      */
     @Override
     public User findUserByLogin(UserLoginDto userLoginDto) {
-        System.out.println("USER REPO CALLED");
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -104,6 +104,91 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
             preparedStatement.setString(4,String.valueOf(createUserDto.getTip()));
             preparedStatement.setString(5,"active");
             preparedStatement.setString(6, createUserDto.getPassword());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void deleteUser(int user_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM user WHERE user_id = ?");
+            preparedStatement.setInt(1, user_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public UserUpdateDto findUserById(int user_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        UserUpdateDto user = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE user_id = ?");
+            preparedStatement.setInt(1, user_id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new UserUpdateDto();
+                user.setFirstname(resultSet.getString("firstname"));
+                user.setLastname(resultSet.getString("lastname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setUser_id(resultSet.getInt("user_id"));
+                user.setTip(Tip.valueOf(resultSet.getString("tip")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeResultSet(resultSet);
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+        return user;
+    }
+
+    @Override
+    public void editUser(int user_id,UserUpdateDto userUpdateDto) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("UPDATE user SET firstname = ?, lastname = ?,email = ?, tip = ? WHERE user_id = ?");
+            preparedStatement.setString(1, userUpdateDto.getFirstname());
+            preparedStatement.setString(2, userUpdateDto.getLastname());
+            preparedStatement.setString(3,userUpdateDto.getEmail());
+            preparedStatement.setString(4,String.valueOf(userUpdateDto.getTip()));
+            preparedStatement.setInt(5,userUpdateDto.getUser_id());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void changeStatus(int user_id,String status) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("UPDATE user SET status = ? WHERE user_id = ?");
+            preparedStatement.setString(1,status);
+            preparedStatement.setInt(2,user_id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
