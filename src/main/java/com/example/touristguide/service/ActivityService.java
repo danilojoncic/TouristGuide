@@ -34,4 +34,6 @@ public class ActivityService {
     public void update(CreateActivityDTO createActivityDTO,int id){
         activityRepoInteface.editActivity(createActivityDTO,id);
     }
+
+
 }

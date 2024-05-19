@@ -13,4 +13,9 @@ public interface ArticleRepoInterface {
     ArticlePresentationDto getOneArticle(int article_id);
 
     List<ArticlePresentationDto> getAllArticles();
+
+    List<ArticlePresentationDto> getPopularArticles();
+
+    List<ArticlePresentationDto> getLatestArticles();
+
 }

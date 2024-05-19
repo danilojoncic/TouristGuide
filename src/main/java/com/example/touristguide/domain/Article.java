@@ -1,5 +1,7 @@
 package com.example.touristguide.domain;
 
+import java.util.Date;
+
 public class Article {
     private int article_id;
     private String title;
@@ -8,6 +10,8 @@ public class Article {
     private int visit_count;
     private int autor_id;
     private int destination_id;
+
+    private Date created_at;
 
     public Article(int article_id, String title, String text, int visit_count, int autor_id, int destination_id) {
         this.article_id = article_id;

@@ -1,5 +1,6 @@
 package com.example.touristguide.dto;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ArticlePresentationDto {
@@ -12,6 +13,8 @@ public class ArticlePresentationDto {
     private String destination_name;
     private Map<String,Integer> tags;
     private int visit_count;
+
+    private Date created_at;
 
     public ArticlePresentationDto() {
     }
@@ -86,5 +89,13 @@ public class ArticlePresentationDto {
 
     public void setVisit_count(int visit_count) {
         this.visit_count = visit_count;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 }

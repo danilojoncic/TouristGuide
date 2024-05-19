@@ -25,19 +25,18 @@ public class ArticleResource {
     }
 
 
-//    @GET
-//    @Path("/latest")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getLatestArticles(){
-//        return null;
-//    }
-//
-//    @GET
-//    @Path("/popular")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getPopularArticles(){
-//        return null;
-//    }
+    @GET
+    @Path("/latest")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLatestArticles(){
+        return Response.ok(articleService.getLatestArticles()).build();
+    }
+
+    @GET
+    @Path("/popular")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPopularArticles(){
+        return Response.ok(articleService.getPopularArticles()).build();    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -28,6 +28,14 @@ public class ArticleService {
         return articleRepoInterface.getAllArticles();
     }
 
+    public List<ArticlePresentationDto> getPopularArticles(){
+        return articleRepoInterface.getPopularArticles();
+    }
+
+    public List<ArticlePresentationDto> getLatestArticles(){
+        return articleRepoInterface.getPopularArticles();
+    }
+
 
 
 

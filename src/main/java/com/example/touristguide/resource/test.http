@@ -2,14 +2,22 @@ GET http://localhost:8080/TouristGuide_war_exploded/api/article
 Accept: application/json
 
 ###
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/popular
+Accept: application/json
+
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest
+Accept: application/json
+
+###
 
 ###ARTICLE
 POST http://localhost:8080/TouristGuide_war_exploded/api/article
 Content-Type: application/json
 
 {
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
+  "title": "New",
+  "text": "This is dsa content of the article.",
   "autor_id": 4,
   "destination_id": 7,
   "tags": [1, 2, 3, 4, 5]
