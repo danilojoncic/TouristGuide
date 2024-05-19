@@ -5,6 +5,7 @@ import com.example.touristguide.dto.CreateArticleDto;
 import com.example.touristguide.repository.article.ArticleRepoInterface;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class ArticleService {
     @Inject
@@ -21,6 +22,10 @@ public class ArticleService {
 
     public ArticlePresentationDto getOneArticle(int article_id){
         return articleRepoInterface.getOneArticle(article_id);
+    }
+
+    public List<ArticlePresentationDto> getAllArticles(){
+        return articleRepoInterface.getAllArticles();
     }
 
 

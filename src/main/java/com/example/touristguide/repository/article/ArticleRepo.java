@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,4 +146,71 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         }
         return article;
     }
+
+
+    @Override
+    public List<ArticlePresentationDto> getAllArticles() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<ArticlePresentationDto> articles = new ArrayList<>();
+
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement(
+                    "SELECT a.article_id, a.title, a.text, a.visit_count, a.autor_id," +
+                            " u.firstname, u.lastname, a.destination_id," +
+                            " d.name AS destination_name " +
+                            "FROM article a " +
+                            "INNER JOIN user u " +
+                            "ON a.autor_id = u.user_id " +
+                            "INNER JOIN destination d " +
+                            "ON a.destination_id = d.destination_id"
+            );
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ArticlePresentationDto article = new ArticlePresentationDto();
+                article.setArticle_id(resultSet.getInt("article_id"));
+                article.setTitle(resultSet.getString("title"));
+                article.setText(resultSet.getString("text"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+                String firstname = resultSet.getString("firstname");
+                String lastname = resultSet.getString("lastname");
+                StringBuilder sb = new StringBuilder("");
+                sb.append(firstname).append(" ");
+                sb.append(lastname);
+                article.setAuthor_name(sb.toString());
+                article.setAutor_id(resultSet.getString("autor_id"));
+                article.setDestination_id(resultSet.getInt("destination_id"));
+                article.setDestination_name(resultSet.getString("destination_name"));
+
+                // Fetch tags for the current article
+                preparedStatement = connection.prepareStatement(
+                        "SELECT activity.tag, activity.activity_id " +
+                                "FROM article_activity " +
+                                "INNER JOIN activity " +
+                                "ON article_activity.activity_id = activity.activity_id " +
+                                "WHERE article_activity.article_id = ?"
+                );
+                preparedStatement.setInt(1, article.getArticle_id());
+                ResultSet tagResultSet = preparedStatement.executeQuery();
+                Map<String, Integer> tags = new HashMap<>();
+                while (tagResultSet.next()) {
+                    tags.put(tagResultSet.getString("tag"), tagResultSet.getInt("activity_id"));
+                }
+                article.setTags(tags);
+                tagResultSet.close();
+
+                articles.add(article);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeResultSet(resultSet);
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+        return articles;
+    }
+
 }

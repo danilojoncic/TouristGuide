@@ -1,3 +1,23 @@
+GET http://localhost:8080/TouristGuide_war_exploded/api/article
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T004235.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/article
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T004223.200.json
+
+###
+
 GET http://localhost:8080/TouristGuide_war_exploded/api/article/3
 Accept: application/json
 Connection: Keep-Alive
@@ -635,26 +655,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2024-05-18T205626.200.json
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T205235.500.html
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T205046.500.html
 
 ###
 

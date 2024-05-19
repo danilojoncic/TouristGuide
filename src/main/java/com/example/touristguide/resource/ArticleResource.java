@@ -39,11 +39,11 @@ public class ArticleResource {
 //        return null;
 //    }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getAllArticles(){
-//        return null;
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllArticles(){
+        return Response.ok(articleService.getAllArticles()).build();
+    }
 
 
 //    @GET
