@@ -17,33 +17,33 @@ public class ArticleResource {
     @Inject
     private ArticleService articleService;
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOneArticle(@PathParam("id")Integer id){
+        return Response.ok(articleService.getOneArticle(id)).build();
+    }
+
+
 //    @GET
-//    @Path("/{id}")
+//    @Path("/latest")
 //    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getOneArticle(@PathParam("id")Integer id){
+//    public Response getLatestArticles(){
+//        return null;
+//    }
+//
+//    @GET
+//    @Path("/popular")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getPopularArticles(){
 //        return null;
 //    }
 
-
-    @GET
-    @Path("/latest")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getLatestArticles(){
-        return null;
-    }
-
-    @GET
-    @Path("/popular")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getPopularArticles(){
-        return null;
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllArticles(){
-        return null;
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getAllArticles(){
+//        return null;
+//    }
 
 
 //    @GET
@@ -64,11 +64,11 @@ public class ArticleResource {
 
 
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response editArticle(@Valid CreateArticleDto createArticleDto){
-        return null;
-    }
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response editArticle(@Valid CreateArticleDto createArticleDto){
+//        return null;
+//    }
 
     @DELETE
     @Path("/{id}")

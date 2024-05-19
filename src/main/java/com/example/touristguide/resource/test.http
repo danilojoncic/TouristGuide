@@ -12,6 +12,9 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8080/TouristGuide_war_exploded/api/article/4
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/3
+Accept: application/json
 
 
 

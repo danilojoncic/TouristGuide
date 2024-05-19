@@ -1,5 +1,6 @@
 package com.example.touristguide.service;
 
+import com.example.touristguide.dto.ArticlePresentationDto;
 import com.example.touristguide.dto.CreateArticleDto;
 import com.example.touristguide.repository.article.ArticleRepoInterface;
 
@@ -16,6 +17,10 @@ public class ArticleService {
 
     public void deleteArticle(int article_id){
         articleRepoInterface.deleteArticle(article_id);
+    }
+
+    public ArticlePresentationDto getOneArticle(int article_id){
+        return articleRepoInterface.getOneArticle(article_id);
     }
 
 
