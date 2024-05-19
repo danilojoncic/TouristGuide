@@ -27,12 +27,12 @@ public class JWTTokenFilter implements ContainerRequestFilter {
 
     static {
         //to do zasada su sve zasticene
-        Set<String> methods = new HashSet<>();
-        methods.add("GET");
-        methods.add("DELETE");
-        methods.add("POST");
-        methods.add("PUT");
-        PROTECTED_PATHS.put("/api/destination", methods);
+//        Set<String> methods = new HashSet<>();
+//        methods.add("GET");
+//        methods.add("DELETE");
+//        methods.add("POST");
+//        methods.add("PUT");
+//        PROTECTED_PATHS.put("/api/destination", methods);
     }
 
     @Override

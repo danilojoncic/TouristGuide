@@ -31,7 +31,7 @@ public class UserResource {
             return Response.status(404).build();
         }
         if(user.getStatus().equals(Status.blocked)) return Response.status(401).build();
-        UserJWTResponse userJWTResponse = JWTCoder.encode(user.getFirstname(),user.getLastname(),String.valueOf(user.getTip()));
+        UserJWTResponse userJWTResponse = JWTCoder.encode(user.getUser_id(),user.getFirstname(),user.getLastname(),String.valueOf(user.getTip()));
         return Response.ok(userJWTResponse).build();
     }
 

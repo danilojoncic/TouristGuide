@@ -1,3 +1,22 @@
+###ARTICLE
+POST http://localhost:8080/TouristGuide_war_exploded/api/article
+Content-Type: application/json
+
+{
+  "title": "Sample Article",
+  "text": "This is the content of the article.",
+  "autor_id": 4,
+  "destination_id": 7,
+  "tags": [1, 2, 3, 4, 5]
+}
+
+###
+
+
+
+
+
+
 ###USER
 POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
 Content-Type: application/json

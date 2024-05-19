@@ -23,10 +23,11 @@ public class JWTCoder {
      * @return vracamo UserJWTResponse dto objekat koji sam sadrzi polje token, unutar
      * tog polja ce se nalaziti enkodirani podaci u formatu jwt-a
      */
-    public static UserJWTResponse encode(String firstname, String lastname, String tip){
+    public static UserJWTResponse encode(int user_id,String firstname, String lastname, String tip){
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             String token = JWT.create()
+                    .withClaim("user_id",user_id)
                     .withClaim("firstname", firstname)
                     .withClaim("lastname", lastname)
                     .withClaim("tip", tip)
