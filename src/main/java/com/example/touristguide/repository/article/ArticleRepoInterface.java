@@ -4,4 +4,6 @@ import com.example.touristguide.dto.CreateArticleDto;
 
 public interface ArticleRepoInterface {
     void addArticle(CreateArticleDto createArticleDto);
+
+    void deleteArticle(int article_id);
 }

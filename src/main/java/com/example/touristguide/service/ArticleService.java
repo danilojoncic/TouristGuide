@@ -14,6 +14,11 @@ public class ArticleService {
     }
 
 
+    public void deleteArticle(int article_id){
+        articleRepoInterface.deleteArticle(article_id);
+    }
+
+
 
 
 }

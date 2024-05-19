@@ -1,3 +1,12 @@
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/article/4
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-19T223026.200.txt
+
+###
+
 POST http://localhost:8080/TouristGuide_war_exploded/api/article
 Content-Type: application/json
 Content-Length: 147
@@ -652,16 +661,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2024-05-18T201733.200.json
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination/2
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T201730.200.json
 
 ###
 

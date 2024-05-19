@@ -46,4 +46,25 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             this.closeConnection(connection);
         }
     }
+
+    @Override
+    public void deleteArticle(int article_id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM article WHERE article_id = ?");
+            preparedStatement.setInt(1, article_id);
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
+            preparedStatement.setInt(1, article_id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+    }
 }

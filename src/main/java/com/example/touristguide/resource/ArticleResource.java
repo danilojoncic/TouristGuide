@@ -73,6 +73,7 @@ public class ArticleResource {
     @DELETE
     @Path("/{id}")
     public Response deleteArticle(@PathParam("id")Integer id){
-        return null;
+        articleService.deleteArticle(id);
+        return Response.ok("Article with id: " + id + " has been deleted!").build();
     }
 }
