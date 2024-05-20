@@ -1,3 +1,60 @@
+PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
+Content-Type: application/json
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "title": "Exploring the Alps",
+    "text": "The Alps are a great destination for hiking, skiing, and enjoying nature.",
+    "autor_id": 7,
+    "destination_id": 2,
+    "tags": [1, 2, 3]
+}
+
+<> 2024-05-20T020004.200.txt
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
+Content-Type: application/json
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "title": "Exploring the Alps",
+    "text": "The Alps are a great destination for hiking, skiing, and enjoying nature.",
+    "autor_id": 7,
+    "destination_id": 2,
+    "tags": [1, 2, 3]
+}
+
+<> 2024-05-20T015947.200.txt
+
+###
+
+PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
+Content-Type: application/json
+Content-Length: 193
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "title": "Exploring the Alps",
+    "text": "The Alps are a great destination for hiking, skiing, and enjoying nature.",
+    "autor_id": 7,
+    "destination_id": 3,
+    "tags": [1, 2, 3]
+}
+
+<> 2024-05-20T015909.200.txt
+
+###
+
 GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest
 Accept: application/json
 Connection: Keep-Alive
@@ -587,45 +644,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2024-05-19T220715.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 1,
-  "destination_id": 2,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T220652.500.html
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/user
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T223107.200.json
-
-###
-
-GET http://localhost:8080/TouristGuide_war_exploded/api/user
-Accept: application/json
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2024-05-18T222554.200.json
 
 ###
 

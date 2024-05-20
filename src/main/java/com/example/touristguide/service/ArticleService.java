@@ -20,6 +20,10 @@ public class ArticleService {
         articleRepoInterface.deleteArticle(article_id);
     }
 
+    public void editArticle(int article_id,CreateArticleDto createArticleDto){
+        articleRepoInterface.editArticle(article_id,createArticleDto);
+    }
+
     public ArticlePresentationDto getOneArticle(int article_id){
         return articleRepoInterface.getOneArticle(article_id);
     }

@@ -52,6 +52,47 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
     }
 
     @Override
+    public void editArticle(int article_id, CreateArticleDto createArticleDto) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            List<Integer> tags = createArticleDto.getTags();
+            connection = this.newConnection();
+
+            // Update the article with the new information
+            preparedStatement = connection.prepareStatement(
+                    "UPDATE article SET title = ?, text = ?, autor_id = ?, destination_id = ? WHERE article_id = ?");
+            preparedStatement.setString(1, createArticleDto.getTitle());
+            preparedStatement.setString(2, createArticleDto.getText());
+            preparedStatement.setInt(3, createArticleDto.getAutor_id());
+            preparedStatement.setInt(4, createArticleDto.getDestination_id());
+            preparedStatement.setInt(5, article_id);
+            preparedStatement.executeUpdate();
+
+            // Delete the existing activities associated with the article
+            preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
+            preparedStatement.setInt(1, article_id);
+            preparedStatement.executeUpdate();
+
+            // Insert the new activities associated with the article
+            for (Integer tag : tags) {
+                preparedStatement = connection.prepareStatement(
+                        "INSERT INTO article_activity (article_id, activity_id) VALUES (?, ?)");
+                preparedStatement.setInt(1, article_id);
+                preparedStatement.setInt(2, tag);
+                preparedStatement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+    }
+
+
+
+    @Override
     public void deleteArticle(int article_id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -349,7 +390,4 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         }
         return articles;
     }
-
-
-
 }

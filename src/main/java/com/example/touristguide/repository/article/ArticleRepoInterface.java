@@ -8,6 +8,8 @@ import java.util.List;
 public interface ArticleRepoInterface {
     void addArticle(CreateArticleDto createArticleDto);
 
+    void editArticle(int article_id,CreateArticleDto createArticleDto);
+
     void deleteArticle(int article_id);
 
     ArticlePresentationDto getOneArticle(int article_id);

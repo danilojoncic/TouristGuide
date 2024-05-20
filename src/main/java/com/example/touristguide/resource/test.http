@@ -1,3 +1,16 @@
+PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
+Content-Type: application/json
+
+{
+    "title": "Exploring the Alps",
+    "text": "The Alps are a great destination for hiking, skiing, and enjoying nature.",
+    "autor_id": 7,
+    "destination_id": 2,
+    "tags": [1, 2, 3]
+}
+
+
+###
 GET http://localhost:8080/TouristGuide_war_exploded/api/article
 Accept: application/json
 

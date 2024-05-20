@@ -63,11 +63,13 @@ public class ArticleResource {
 
 
 
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response editArticle(@Valid CreateArticleDto createArticleDto){
-//        return null;
-//    }
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response editArticle(@PathParam("id")Integer id,@Valid CreateArticleDto createArticleDto){
+        articleService.editArticle(id,createArticleDto);
+        return Response.ok("Article with id: " + id + " has been edited!").build();
+    }
 
     @DELETE
     @Path("/{id}")
