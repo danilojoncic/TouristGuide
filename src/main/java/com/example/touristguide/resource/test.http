@@ -1,3 +1,21 @@
+GET http://localhost:8080/TouristGuide_war_exploded/api/comment/7
+Accept: application/json
+###
+
+DELETE http://localhost:8080/TouristGuide_war_exploded/api/comment/6
+###
+
+POST http://localhost:8080/TouristGuide_war_exploded/api/comment/1
+Content-Type: application/json
+
+{
+  "author_name": "Daca",
+  "text": "ovo je jako fin komentar"
+}
+
+
+
+
 ###
 GET http://localhost:8080/TouristGuide_war_exploded/api/article/parameter/Paris
 Accept: application/json

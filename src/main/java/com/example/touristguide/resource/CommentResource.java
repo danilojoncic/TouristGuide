@@ -1,26 +1,40 @@
 package com.example.touristguide.resource;
 
 import com.example.touristguide.domain.Comment;
+import com.example.touristguide.dto.CreateCommentDto;
 import com.example.touristguide.service.CommentService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.print.attribute.standard.Media;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-
+@Path("/comment")
 public class CommentResource {
-
-
     @Inject private CommentService commentService;
 
     @GET
-    @Path("/{article_id}/comments")
+    @Path("/{article_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Comment> getAllCommentsForArticle(){
-        return null;
+    public Response getAllCommentsForArticle(@PathParam("article_id")Integer article_id){
+        return Response.ok(commentService.getAllCommentsForArticle(article_id)).build();
     }
 
+    @DELETE
+    @Path("/{id}")
+    public Response deleteComment(@PathParam("id")Integer id){
+        commentService.deleteComment(id);
+        return Response.ok("Comment with id " + id + " has been deleted!").build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{article_id}")
+    public Response addComment(@PathParam("article_id")Integer article_id, @Valid CreateCommentDto createCommentDto){
+        commentService.addCommentForArticle(article_id,createCommentDto);
+        return Response.ok("Comment " + createCommentDto.getText() +" by :" + createCommentDto.getAuthor_name() + " has been created!").build();
+    }
 }
