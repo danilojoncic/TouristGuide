@@ -1,3 +1,53 @@
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/parameter/Paris
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T021449.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/parameter/Sailing
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T021435.200.json
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/article
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T021256.500.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/Skiing
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T021235.500.html
+
+###
+
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/Sailing
+Accept: application/json
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-05-20T021215.500.html
+
+###
+
 PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
 Content-Type: application/json
 Content-Length: 193
@@ -549,101 +599,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2024-05-19T221335.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/article
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 4,
-  "destination_id": 7,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T221106.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/article
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 4,
-  "destination_id": 7,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T220903.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/article
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 4,
-  "destination_id": 7,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T220856.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/article
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 4,
-  "destination_id": 7,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T220814.500.html
-
-###
-
-POST http://localhost:8080/TouristGuide_war_exploded/api/user/login
-Content-Type: application/json
-Content-Length: 147
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Sample Article",
-  "text": "This is the content of the article.",
-  "autor_id": 4,
-  "destination_id": 2,
-  "tags": [1, 2, 3, 4, 5]
-}
-
-<> 2024-05-19T220715.500.html
 
 ###
 

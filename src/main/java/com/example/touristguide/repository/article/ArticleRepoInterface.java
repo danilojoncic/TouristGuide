@@ -20,4 +20,6 @@ public interface ArticleRepoInterface {
 
     List<ArticlePresentationDto> getLatestArticles();
 
+    List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium);
+
 }

@@ -45,12 +45,12 @@ public class ArticleResource {
     }
 
 
-//    @GET
-//    @Path("/{string}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getArticlesByTagOrDestination(@PathParam("string")String parameter){
-//        return null;
-//    }
+    @GET
+    @Path("/parameter/{string}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArticlesByTagOrDestination(@PathParam("string")String parameter){
+        return Response.ok(articleService.getArticlesBasedOnCriterium(parameter)).build();
+    }
 
 
     @POST

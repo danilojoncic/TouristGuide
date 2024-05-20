@@ -1,3 +1,9 @@
+###
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/parameter/Paris
+Accept: application/json
+
+###
+
 PUT http://localhost:8080/TouristGuide_war_exploded/api/article/7
 Content-Type: application/json
 

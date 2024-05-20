@@ -335,7 +335,6 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
 
         try {
             connection = this.newConnection();
-            // Query to select the 10 latest articles sorted by creation date
             preparedStatement = connection.prepareStatement(
                     "SELECT a.article_id, a.title, a.text, a.visit_count, a.autor_id," +
                             " u.firstname, u.lastname, a.destination_id," +
@@ -379,6 +378,80 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 }
                 article.setTags(tags);
                 tagResultSet.close();
+                articles.add(article);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            this.closeResultSet(resultSet);
+            this.closeStatement(preparedStatement);
+            this.closeConnection(connection);
+        }
+        return articles;
+    }
+
+    @Override
+    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<ArticlePresentationDto> articles = new ArrayList<>();
+
+        try {
+            connection = this.newConnection();
+            preparedStatement = connection.prepareStatement(
+                    "SELECT a.article_id, a.title, a.text, a.visit_count, a.autor_id," +
+                            " u.firstname, u.lastname, a.destination_id, a.created_at ," +
+                            " d.name AS destination_name " +
+                            "FROM article a " +
+                            "INNER JOIN user u " +
+                            "ON a.autor_id = u.user_id " +
+                            "INNER JOIN destination d " +
+                            "ON a.destination_id = d.destination_id " +
+                            "INNER JOIN article_activity " +
+                            "ON a.article_id = article_activity.article_id " +
+                            "INNER JOIN activity " +
+                            "ON article_activity.activity_id = activity.activity_id " +
+                            "WHERE d.name = ? OR activity.tag = ?"
+            );
+            preparedStatement.setString(1,criterium);
+            preparedStatement.setString(2,criterium);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ArticlePresentationDto article = new ArticlePresentationDto();
+                article.setArticle_id(resultSet.getInt("article_id"));
+                article.setTitle(resultSet.getString("title"));
+                article.setText(resultSet.getString("text"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+                String firstname = resultSet.getString("firstname");
+                String lastname = resultSet.getString("lastname");
+                StringBuilder sb = new StringBuilder("");
+                sb.append(firstname).append(" ");
+                sb.append(lastname);
+                article.setAuthor_name(sb.toString());
+                article.setAutor_id(resultSet.getString("autor_id"));
+                article.setDestination_id(resultSet.getInt("destination_id"));
+                article.setDestination_name(resultSet.getString("destination_name"));
+                article.setCreated_at(resultSet.getDate("created_at"));
+
+
+                // Fetch tags for the current article
+                preparedStatement = connection.prepareStatement(
+                        "SELECT activity.tag, activity.activity_id " +
+                                "FROM article_activity " +
+                                "INNER JOIN activity " +
+                                "ON article_activity.activity_id = activity.activity_id " +
+                                "WHERE article_activity.article_id = ?"
+                );
+                preparedStatement.setInt(1, article.getArticle_id());
+                ResultSet tagResultSet = preparedStatement.executeQuery();
+                Map<String, Integer> tags = new HashMap<>();
+                while (tagResultSet.next()) {
+                    tags.put(tagResultSet.getString("tag"), tagResultSet.getInt("activity_id"));
+                }
+                article.setTags(tags);
+                tagResultSet.close();
+
                 articles.add(article);
             }
         } catch (SQLException e) {

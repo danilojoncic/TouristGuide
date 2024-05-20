@@ -37,7 +37,11 @@ public class ArticleService {
     }
 
     public List<ArticlePresentationDto> getLatestArticles(){
-        return articleRepoInterface.getPopularArticles();
+        return articleRepoInterface.getLatestArticles();
+    }
+
+    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium){
+        return articleRepoInterface.getArticlesBasedOnCriterium(criterium);
     }
 
 
