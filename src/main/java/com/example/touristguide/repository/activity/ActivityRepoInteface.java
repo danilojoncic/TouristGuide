@@ -10,7 +10,7 @@ public interface ActivityRepoInteface {
 
     Activity getActivity(int id);
 
-    List<Activity> getAllActivities();
+    List<Activity> getAllActivities(int page, int pageSize);
 
     void editActivity(CreateActivityDTO createActivityDTO, int id);
 

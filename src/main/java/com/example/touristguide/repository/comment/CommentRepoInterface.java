@@ -6,7 +6,7 @@ import com.example.touristguide.dto.CreateCommentDto;
 import java.util.List;
 
 public interface CommentRepoInterface {
-    List<Comment> getAllCommentsForAPost(int post_id);
+    List<Comment> getAllCommentsForAPost(int article_id,int page, int pageSize);
 
     void deleteComment(int comment_id);
 

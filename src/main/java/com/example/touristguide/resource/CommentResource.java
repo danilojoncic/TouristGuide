@@ -19,8 +19,10 @@ public class CommentResource {
     @GET
     @Path("/{article_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCommentsForArticle(@PathParam("article_id")Integer article_id){
-        return Response.ok(commentService.getAllCommentsForArticle(article_id)).build();
+    public Response getAllCommentsForArticle(@PathParam("article_id")int article_id,
+                                             @QueryParam("page")@DefaultValue("1")int page,
+                                             @QueryParam("pageSize")@DefaultValue("10")int pageSize) {
+        return Response.ok(commentService.getAllCommentsForArticle(article_id,page,pageSize)).build();
     }
 
     @DELETE

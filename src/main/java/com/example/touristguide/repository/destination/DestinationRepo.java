@@ -98,14 +98,17 @@ public class DestinationRepo extends MDBRepository implements DestinationRepoInt
 
 
     @Override
-    public List<Destination> getAllDestinations() {
+    public List<Destination> getAllDestinations(int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<Destination> destinations = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
         try{
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM destination");
+            preparedStatement = connection.prepareStatement("SELECT * FROM destination LIMIT ? OFFSET ?");
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 Destination destination = new Destination();

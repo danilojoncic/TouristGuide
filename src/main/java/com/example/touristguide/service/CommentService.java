@@ -11,8 +11,8 @@ import java.util.List;
 public class CommentService {
     @Inject private CommentRepoInterface commentRepoInterface;
 
-    public List<Comment> getAllCommentsForArticle(int article_id){
-        return commentRepoInterface.getAllCommentsForAPost(article_id);
+    public List<Comment> getAllCommentsForArticle(int article_id,int page, int pageSize){
+        return commentRepoInterface.getAllCommentsForAPost(article_id,page,pageSize);
     }
 
     public void addCommentForArticle(int article_id, CreateCommentDto createCommentDto){

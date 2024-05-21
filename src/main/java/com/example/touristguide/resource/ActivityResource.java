@@ -26,8 +26,9 @@ public class ActivityResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDestinations(){
-        return Response.ok(this.activityService.getAll()).build();
+    public Response getAllDestinations(@QueryParam("page")@DefaultValue("1")int page,
+                                       @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(this.activityService.getAll(page,pageSize)).build();
     }
 
 

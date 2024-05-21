@@ -14,12 +14,13 @@ public interface ArticleRepoInterface {
 
     ArticlePresentationDto getOneArticle(int article_id);
 
-    List<ArticlePresentationDto> getAllArticles();
+    List<ArticlePresentationDto> getAllArticles(int page, int pageSize);
 
-    List<ArticlePresentationDto> getPopularArticles();
+    List<ArticlePresentationDto> getPopularArticles(int page, int pageSize);
 
-    List<ArticlePresentationDto> getLatestArticles();
+    List<ArticlePresentationDto> getLatestArticles(int page, int pageSize);
 
+    //bez page i pageSize za ovo je namjerno
     List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium);
 
 }

@@ -27,8 +27,10 @@ public class DestinationResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllDestinations(){
-        return Response.ok(this.destinationService.getAll()).build();
+    public Response getAllDestinations(
+            @QueryParam("page")@DefaultValue("1")int page,
+            @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(this.destinationService.getAll(page,pageSize)).build();
     }
 
 

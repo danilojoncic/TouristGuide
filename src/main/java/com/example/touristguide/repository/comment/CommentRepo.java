@@ -16,17 +16,20 @@ import java.util.Map;
 
 public class CommentRepo extends MDBRepository implements CommentRepoInterface {
     @Override
-    public List<Comment> getAllCommentsForAPost(int post_id) {
+    public List<Comment> getAllCommentsForAPost(int post_id,int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<Comment> comments = new ArrayList<>();
+        int offset = (page - 1)* pageSize;
         try {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM comment WHERE article_id = ?"
+                    "SELECT * FROM comment WHERE article_id = ? LIMIT ? OFFSET ?"
             );
             preparedStatement.setInt(1,post_id);
+            preparedStatement.setInt(2,pageSize);
+            preparedStatement.setInt(3,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Comment comment = new Comment();

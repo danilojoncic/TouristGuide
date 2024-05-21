@@ -26,8 +26,8 @@ public class DestinationService {
         destinationRepoInterface.deleteDestination(destination_id);
     }
 
-    public List<Destination> getAll(){
-        return destinationRepoInterface.getAllDestinations();
+    public List<Destination> getAll(int page,int pageSize){
+        return destinationRepoInterface.getAllDestinations(page,pageSize);
     }
 
     public Destination getOne(int destination_id){

@@ -57,14 +57,17 @@ public class ActivityRepo extends MDBRepository implements ActivityRepoInteface 
     }
 
     @Override
-    public List<Activity> getAllActivities() {
+    public List<Activity> getAllActivities(int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<Activity> activities = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
         try{
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM activity");
+            preparedStatement = connection.prepareStatement("SELECT * FROM activity LIMIT ? OFFSET ?");
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 Activity activity = new Activity();

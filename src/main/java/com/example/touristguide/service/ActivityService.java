@@ -23,8 +23,8 @@ public class ActivityService {
         activityRepoInteface.deleteActivity(activity_id);
     }
 
-    public List<Activity> getAll(){
-        return activityRepoInteface.getAllActivities();
+    public List<Activity> getAll(int page, int pageSize){
+        return activityRepoInteface.getAllActivities(page,pageSize);
     }
 
     public Activity getOne(int activity_id){

@@ -39,11 +39,11 @@ GET http://localhost:8080/TouristGuide_war_exploded/api/article
 Accept: application/json
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/article/popular
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/popular?pageSize=2
 Accept: application/json
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest?pageSize=1
 Accept: application/json
 
 ###
@@ -125,7 +125,7 @@ Content-Type: application/json
 DELETE http://localhost:8080/TouristGuide_war_exploded/api/destination/8
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/destination
+GET http://localhost:8080/TouristGuide_war_exploded/api/destination?pageSize=2
 Accept: application/json
 
 ###
@@ -160,7 +160,7 @@ GET http://localhost:8080/TouristGuide_war_exploded/api/activity/1
 Accept: application/json
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/activity
+GET http://localhost:8080/TouristGuide_war_exploded/api/activity?pageSize=2
 Accept: application/json
 
 ###

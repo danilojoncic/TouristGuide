@@ -10,7 +10,7 @@ public interface DestinationRepoInterface {
     void editDestination(CreateDestinationDTO createDestinationDTO,int destination_id);
     void deleteDestination(int destination_id);
     Destination getDestination(int destination_id);
-    List<Destination> getAllDestinations();
+    List<Destination> getAllDestinations(int page, int pageSize);
 
     Destination findByName(String name);
 }

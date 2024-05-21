@@ -28,20 +28,23 @@ public class ArticleResource {
     @GET
     @Path("/latest")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getLatestArticles(){
-        return Response.ok(articleService.getLatestArticles()).build();
+    public Response getLatestArticles(@QueryParam("page")@DefaultValue("1")int page,
+                                      @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(articleService.getLatestArticles(page,pageSize)).build();
     }
 
     @GET
     @Path("/popular")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPopularArticles(){
-        return Response.ok(articleService.getPopularArticles()).build();    }
+    public Response getPopularArticles(@QueryParam("page")@DefaultValue("1")int page,
+                                       @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(articleService.getPopularArticles(page,pageSize)).build();    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllArticles(){
-        return Response.ok(articleService.getAllArticles()).build();
+    public Response getAllArticles(@QueryParam("page")@DefaultValue("1")int page,
+                                   @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(articleService.getAllArticles(page,pageSize)).build();
     }
 
 

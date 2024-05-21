@@ -28,16 +28,16 @@ public class ArticleService {
         return articleRepoInterface.getOneArticle(article_id);
     }
 
-    public List<ArticlePresentationDto> getAllArticles(){
-        return articleRepoInterface.getAllArticles();
+    public List<ArticlePresentationDto> getAllArticles(int page, int pageSize){
+        return articleRepoInterface.getAllArticles(page,pageSize);
     }
 
-    public List<ArticlePresentationDto> getPopularArticles(){
-        return articleRepoInterface.getPopularArticles();
+    public List<ArticlePresentationDto> getPopularArticles(int page, int pageSize){
+        return articleRepoInterface.getPopularArticles(page,pageSize);
     }
 
-    public List<ArticlePresentationDto> getLatestArticles(){
-        return articleRepoInterface.getLatestArticles();
+    public List<ArticlePresentationDto> getLatestArticles(int page, int pageSize){
+        return articleRepoInterface.getLatestArticles(page,pageSize);
     }
 
     public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium){

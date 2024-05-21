@@ -192,12 +192,12 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
 
 
     @Override
-    public List<ArticlePresentationDto> getAllArticles() {
+    public List<ArticlePresentationDto> getAllArticles(int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<ArticlePresentationDto> articles = new ArrayList<>();
-
+        int offset = (page - 1) * pageSize;
         try {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement(
@@ -208,8 +208,10 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                             "INNER JOIN user u " +
                             "ON a.autor_id = u.user_id " +
                             "INNER JOIN destination d " +
-                            "ON a.destination_id = d.destination_id"
+                            "ON a.destination_id = d.destination_id LIMIT ? OFFSET ?"
             );
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ArticlePresentationDto article = new ArticlePresentationDto();
@@ -259,12 +261,12 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
     }
 
     @Override
-    public List<ArticlePresentationDto> getPopularArticles() {
+    public List<ArticlePresentationDto> getPopularArticles(int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<ArticlePresentationDto> articles = new ArrayList<>();
-
+        int offset = (page - 1) * pageSize;
         try {
             connection = this.newConnection();
             // Query to select the most visited articles created in the last 30 days
@@ -279,8 +281,10 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                             "ON a.destination_id = d.destination_id " +
                             "WHERE DATEDIFF(CURDATE(), a.created_at) <= 30 " +
                             "ORDER BY a.visit_count DESC " +
-                            "LIMIT 10"
+                            "LIMIT ? OFFSET ?"
             );
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ArticlePresentationDto article = new ArticlePresentationDto();
@@ -327,12 +331,12 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
     }
 
     @Override
-    public List<ArticlePresentationDto> getLatestArticles() {
+    public List<ArticlePresentationDto> getLatestArticles(int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<ArticlePresentationDto> articles = new ArrayList<>();
-
+        int offset = (page - 1) * pageSize;
         try {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement(
@@ -345,8 +349,10 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                             "INNER JOIN destination d " +
                             "ON a.destination_id = d.destination_id " +
                             "ORDER BY a.created_at DESC " +
-                            "LIMIT 10"
+                            "LIMIT ? OFFSET ?"
             );
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,pageSize);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ArticlePresentationDto article = new ArticlePresentationDto();
