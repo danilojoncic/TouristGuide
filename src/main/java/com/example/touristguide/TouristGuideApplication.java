@@ -1,6 +1,6 @@
 package com.example.touristguide;
 
-import com.example.touristguide.filter.JWTTokenFilter;
+import com.example.touristguide.jwt.JWTTokenFilter;
 import com.example.touristguide.repository.activity.ActivityRepo;
 import com.example.touristguide.repository.activity.ActivityRepoInteface;
 import com.example.touristguide.repository.article.ArticleRepo;

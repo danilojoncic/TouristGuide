@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserRepoInterface {
     User findUserByLogin(UserLoginDto userLoginDto);
-    List<UserTableDto> getAllUsers();
+    List<UserTableDto> getAllUsers(int page,int pageSize);
 
     void addUser(CreateUserDto createUserDto);
 

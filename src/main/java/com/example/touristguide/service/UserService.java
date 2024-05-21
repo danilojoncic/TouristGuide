@@ -33,8 +33,8 @@ public class UserService {
     }
 
 
-    public List<UserTableDto> getAllUsersInTable(){
-        return userRepoInterface.getAllUsers();
+    public List<UserTableDto> getAllUsersInTable(int page, int pageSize){
+        return userRepoInterface.getAllUsers(page,pageSize);
     }
 
     public void delete(int user_id){

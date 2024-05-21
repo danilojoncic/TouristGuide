@@ -38,8 +38,10 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response tableOfUsers(){
-        return Response.ok(userService.getAllUsersInTable()).build();
+    public Response tableOfUsers(@QueryParam("page")@DefaultValue("1")Integer page
+            ,@QueryParam("pageSize")@DefaultValue("5")Integer pageSize){
+
+        return Response.ok(userService.getAllUsersInTable(page,pageSize)).build();
     }
 
 

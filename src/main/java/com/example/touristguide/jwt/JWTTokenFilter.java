@@ -1,4 +1,4 @@
-package com.example.touristguide.filter;
+package com.example.touristguide.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

@@ -60,14 +60,17 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
     }
 
     @Override
-    public List<UserTableDto> getAllUsers() {
+    public List<UserTableDto> getAllUsers(int page,int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<UserTableDto> list = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
         try {
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM user");
+            preparedStatement = connection.prepareStatement("SELECT * FROM user LIMIT ? OFFSET ?");
+            preparedStatement.setInt(1,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserTableDto userTableDto = new UserTableDto();
