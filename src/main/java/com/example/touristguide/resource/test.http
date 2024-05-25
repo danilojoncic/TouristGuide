@@ -39,11 +39,11 @@ GET http://localhost:8080/TouristGuide_war_exploded/api/article
 Accept: application/json
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/article/popular?pageSize=2
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/popular
 Accept: application/json
 
 ###
-GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest?pageSize=1
+GET http://localhost:8080/TouristGuide_war_exploded/api/article/latest
 Accept: application/json
 
 ###

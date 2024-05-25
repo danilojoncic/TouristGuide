@@ -1,14 +1,8 @@
-package com.example.touristguide.jwt;
+package com.example.touristguide.requestFilters;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.touristguide.dto.UserJWTResponse;
-import com.example.touristguide.dto.UserLoginDto;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class JWTCoder {
 

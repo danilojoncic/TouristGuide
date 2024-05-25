@@ -352,7 +352,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                             "LIMIT ? OFFSET ?"
             );
             preparedStatement.setInt(1,pageSize);
-            preparedStatement.setInt(2,pageSize);
+            preparedStatement.setInt(2,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ArticlePresentationDto article = new ArticlePresentationDto();
