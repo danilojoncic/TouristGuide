@@ -148,6 +148,8 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
                 article.setCreated_at(resultSet.getDate("creation_date"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+
 
 
             }
@@ -229,6 +231,8 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
                 article.setCreated_at(resultSet.getDate("created_at"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+
 
 
                 // Fetch tags for the current article
@@ -302,6 +306,8 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
                 article.setCreated_at(resultSet.getDate("created_at"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+
                 preparedStatement = connection.prepareStatement(
                         "SELECT activity.tag, activity.activity_id " +
                                 "FROM article_activity " +
@@ -369,6 +375,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
                 article.setCreated_at(resultSet.getDate("created_at"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
                 preparedStatement = connection.prepareStatement(
                         "SELECT activity.tag, activity.activity_id " +
                                 "FROM article_activity " +
@@ -439,6 +446,8 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
                 article.setCreated_at(resultSet.getDate("created_at"));
+                article.setVisit_count(resultSet.getInt("visit_count"));
+
 
 
                 // Fetch tags for the current article
