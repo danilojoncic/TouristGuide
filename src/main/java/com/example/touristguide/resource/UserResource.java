@@ -6,7 +6,7 @@ import com.example.touristguide.dto.CreateUserDto;
 import com.example.touristguide.dto.UserJWTResponse;
 import com.example.touristguide.dto.UserLoginDto;
 import com.example.touristguide.dto.UserUpdateDto;
-import com.example.touristguide.jwt.JWTCoder;
+import com.example.touristguide.requestFilters.JWTCoder;
 import com.example.touristguide.service.UserService;
 
 import javax.inject.Inject;

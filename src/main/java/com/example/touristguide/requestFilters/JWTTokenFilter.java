@@ -1,11 +1,10 @@
-package com.example.touristguide.jwt;
+package com.example.touristguide.requestFilters;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import com.example.touristguide.jwt.JWTCoder;
 
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
@@ -15,7 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
