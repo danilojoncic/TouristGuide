@@ -98,13 +98,20 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         PreparedStatement preparedStatement = null;
         try {
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM article WHERE article_id = ?");
-            preparedStatement.setInt(1, article_id);
-            preparedStatement.executeUpdate();
 
             preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
+
+
+            preparedStatement = connection.prepareStatement("DELETE FROM comment WHERE article_id = ?");
+            preparedStatement.setInt(1, article_id);
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM article WHERE article_id = ?");
+            preparedStatement.setInt(1, article_id);
+            preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -123,7 +130,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement(
                     "SELECT a.article_id, a.title, a.text, a.visit_count, a.autor_id," +
-                            " u.firstname, u.lastname, a.destination_id, a.creation_date" +
+                            " u.firstname, u.lastname, a.destination_id, a.created_at," +
                             " d.name AS destination_name " +
                             "FROM article a " +
                             "INNER JOIN user u " +
@@ -147,7 +154,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                 article.setAutor_id(resultSet.getString("autor_id"));
                 article.setDestination_id(resultSet.getInt("destination_id"));
                 article.setDestination_name(resultSet.getString("destination_name"));
-                article.setCreated_at(resultSet.getDate("creation_date"));
+                article.setCreated_at(resultSet.getDate("created_at"));
                 article.setVisit_count(resultSet.getInt("visit_count"));
 
 
