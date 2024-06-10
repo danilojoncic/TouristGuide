@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tourist Guide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            text-align: center;
+        }
+        #article_comments{
+            padding-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="latest.html" id="home_nav">Tourist Guide</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="popular.html" id="popular_nav">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="latest.html" id="latest_nav">Latest</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.html" id="login_nav">Sign In</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center"> <!-- Added justify-content-center class -->
+        <button type="button" class="btn btn-primary" id="back_button">Back</button>
+        <div class="col-md-12">
+            <div id="article_segment">
+            </div>
+        </div>
+        <div id="article_comments">
+            <ul id="comments_list"></ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+
+        $('#back_button').click(function () {
+            history.back();
+        });
+
+        if (articleId) {
+            fetchSingleArticle(articleId);
+        } else {
+            alert('No article ID found.');
+        }
+
+        function formatDate(timestamp) {
+            var date = new Date(timestamp);
+            return date.toDateString();
+        }
+
+        function fetchSingleArticle(articleId) {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/article/' + articleId,
+                type: 'GET',
+                success: function (article) {
+                    createSingleArticleView(article);
+                    fetchCommentsForArticle(articleId);
+                },
+                error: function () {
+                    alert('Error: Unable to fetch the article.');
+                }
+            });
+        }
+
+        function createSingleArticleView(article) {
+            var articleContainer = $('<div class="container"></div>');
+            var articleHeader = $('<h2>' + article.title + '</h2>');
+            var articleMeta = $('<p>By ' + article.author_name + ' | Created At: ' + formatDate(article.created_at) + '</p>');
+            var articleText = $('<p>' + article.text + '</p>');
+            var commentForm = $('<form id="comment_form"><div class="form-group"><label for="comment_author">Name:</label><input type="text" class="form-control" id="comment_author" required></div><div class="form-group"><label for="comment_text">Comment:</label><textarea class="form-control" id="comment_text" rows="3" required></textarea></div><button type="submit" class="btn btn-primary">Submit</button></form>');
+
+            articleContainer.append(articleHeader);
+            articleContainer.append(articleMeta);
+            articleContainer.append(articleText);
+            articleContainer.append(commentForm);
+            $('#article_segment').append(articleContainer);
+            $('#comment_form').submit(function (event) {
+                event.preventDefault();
+                var author = $('#comment_author').val();
+                var text = $('#comment_text').val();
+                if (author && text) {
+                    submitComment(article.article_id, author, text);
+                } else {
+                    alert('Please enter both your name and comment.');
+                }
+            });
+        }
+
+        function submitComment(articleId, author, text) {
+            var commentData = {
+                author_name: author,
+                text: text
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/comment/' + articleId,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(commentData),
+                success: function (response) {
+                    fetchCommentsForArticle(articleId);
+                    $('#comment_author').val('');
+                    $('#comment_text').val('');
+                    alert('Comment added successfully!');
+                },
+                error: function () {
+                    alert('Error: Unable to add comment.');
+                }
+            });
+        }
+
+        function fetchCommentsForArticle(articleId) {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/comment/' + articleId,
+                type: 'GET',
+                success: function (comments) {
+                    $('#comments_list').empty();
+                    comments.forEach(function (comment) {
+                        var commentCard = $('<div class="card "></div>');
+                        var cardBody = $('<div class="card-body"></div>');
+                        var authorName = $('<h5 class="card-title">' + comment.author_name + '</h5>');
+                        var commentText = $('<p class="card-text">' + comment.text + '</p>');
+                        cardBody.append(authorName);
+                        cardBody.append(commentText);
+                        commentCard.append(cardBody);
+                        $('#comments_list').append(commentCard);
+                    });
+                },
+                error: function () {
+                    alert('Error: Unable to fetch comments for the article.');
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

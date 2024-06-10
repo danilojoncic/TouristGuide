@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tourist Guide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            text-align: center;
+        }
+
+        #articles_section {
+            width: 80%;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .card-header {
+            background-color: cornflowerblue;
+            color: white;
+            position: relative;
+
+        }
+
+        .card-header h5 {
+            color: white;
+        }
+
+        .card-header h6 {
+            color: white;
+        }
+
+        .card-body {
+            text-align: left;
+            color: black;
+            position: relative;
+        }
+
+        .tags {
+            margin-top: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 2px 5px;
+            margin-right: 10px;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+
+        .destination-tag {
+            background-color: #ffdf00;
+            color: #0c5460;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        #activity_tag_button{
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .read-more-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .read-more-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #login_form .form-group {
+            text-align: left;
+        }
+
+        #login_form input {
+            text-align: left;
+        }
+
+        .pagination {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            padding: 5px 10px;
+
+        }
+        #pagination_buttons button {
+            margin-right: 10px; /* Adjust the margin value as needed */
+
+        }
+
+
+        .btn-disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        #tags_nav {
+            position: fixed;
+            right: 10px;
+            top: 10%;
+            width: 10%;
+            text-align: center;
+
+        }
+
+        #tags_nav h2 {
+            margin-top: 10px;
+        }
+
+        #tags_nav ul {
+            padding-left: 0;
+        }
+
+        #tags_nav li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+
+        .tag-button {
+            width: 100%;
+            text-align: left;
+            padding: 5px 10px;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="latest.html" id="home_nav">Tourist Guide</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="popular.html" id="popular_nav">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="latest.html" id="latest_nav">Latest</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.html" id="login_nav">Sign In</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="tags_nav">
+    <ul id="destination_tags_list">
+    </ul>
+    <ul id="activity_tags_list">
+    </ul>
+</div>
+
+<div id="articles_section" class="row">
+    <div class="col-md-12">
+        <div id="articles_list">
+        </div>
+        <div id="pagination_buttons" class="pagination">
+            <button id="prev_page" class="btn btn-primary">Previous</button>
+            <button id="next_page" class="btn btn-primary">Next</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let currentPage = 1;
+        const pageSize = 5;
+
+        function fetchDestinationTags() {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination',
+                type: 'GET',
+                success: function (tags) {
+                    $('#destination_tags_list').empty();
+                    tags.forEach(function (tag) {
+                        var button = $('<button class="btn btn-warning tag-button">' + tag.name + '</button>');
+                        button.click(function () {
+                            window.location.href = 'tag.html?destination=' + tag.name;
+                        });
+                        $('#destination_tags_list').append($('<li>').append(button));
+                    });
+                },
+                error: function () {
+                    alert('Error: Unable to fetch destination tags.');
+                }
+            });
+        }
+
+        function fetchActivityTags() {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity',
+                type: 'GET',
+                success: function (tags) {
+                    $('#activity_tags_list').empty();
+                    tags.forEach(function (tag) {
+                        var button = $('<button class="btn btn-primary tag-button" id="activity_tag_button">' + tag.tag + '</button>');
+                        button.click(function () {
+                            window.location.href = 'tag.html?activity=' + tag.tag;
+                        });
+                        $('#activity_tags_list').append($('<li>').append(button));
+                    });
+                },
+                error: function () {
+                    alert('Error: Unable to fetch activity tags.');
+                }
+            });
+        }
+
+        function fetchArticles(url, page = 1, pageSize = 5) {
+            $('#articles_list').empty();
+            $('#pagination_buttons').show();
+            $('#article_comments').hide();
+
+            $.ajax({
+
+                url: `${url}?page=${page}&pageSize=${pageSize}`,
+                type: 'GET',
+                success: function (articles) {
+                    $('#articles_list').empty();
+                    articles.forEach(function (article) {
+                        createArticleCard(article);
+                    });
+
+                    updatePaginationButtons(articles.length);
+                },
+                error: function () {
+                    alert('Error: Unable to fetch articles.');
+                }
+            });
+        }
+
+        $('#next_page').click(function () {
+            currentPage++;
+            fetchArticles('http://localhost:8080/TouristGuide_war_exploded/api/article/latest', currentPage, pageSize);
+        });
+
+        $('#prev_page').click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                fetchArticles('http://localhost:8080/TouristGuide_war_exploded/api/article/latest', currentPage, pageSize);
+            }
+        });
+
+        function updatePaginationButtons(articlesCount) {
+            if (currentPage === 1) {
+                $('#prev_page').addClass('btn-disabled').prop('disabled', true);
+            } else {
+                $('#prev_page').removeClass('btn-disabled').prop('disabled', false);
+            }
+
+            if (articlesCount < pageSize) {
+                $('#next_page').addClass('btn-disabled').prop('disabled', true);
+            } else {
+                $('#next_page').removeClass('btn-disabled').prop('disabled', false);
+            }
+        }
+
+        function getFirstSentence(text) {
+            var firstSentence = text.split(".")[0];
+            return firstSentence;
+        }
+
+        function createTags(tags) {
+            var tagsDiv = $('<div class="tags"></div>');
+            if (typeof tags === 'object') {
+                for (var tag in tags) {
+                    if (tags.hasOwnProperty(tag)) {
+                        var tagElement = $('<span class="tag">' + tag + '</span>');
+                        tagsDiv.append(tagElement);
+                    }
+                }
+            }
+            return tagsDiv;
+        }
+
+        function formatDate(timestamp) {
+            var date = new Date(timestamp);
+            return date.toDateString();
+        }
+
+        function createArticleCard(article) {
+            var card = $('<div class="card"></div>');
+            var cardHeader = $('<div class="card-header">' +
+                '<h5 class="card-title">' + article.title + '</h5>' +
+                '<h6 class="card-subtitle mb-2 ">By ' + article.author_name + '</h6>' +
+                '</div>');
+            var cardBody = $('<div class="card-body">' +
+                '<p class="card-text">' + getFirstSentence(article.text) + '</p>' +
+                '<p><strong>Visit Count:</strong> ' + article.visit_count + '</p>' +
+                '<p><strong>Created At:</strong> ' + formatDate(article.created_at) + '</p>' +
+                '</div>');
+
+            var destinationTag = $('<span class="tag destination-tag">' + article.destination_name + '</span>');
+            cardHeader.append(destinationTag);
+
+            var tags = createTags(article.tags);
+            cardBody.append(tags);
+
+            var readMoreButton = $('<button class="read-more-btn">Read More</button>');
+            readMoreButton.click(function () {
+                window.location.href = 'article.html?id=' + article.article_id;
+            });
+            cardBody.append(readMoreButton);
+
+
+            card.append(cardHeader);
+            card.append(cardBody);
+            $('#articles_list').append(card);
+        }
+        fetchDestinationTags();
+        fetchActivityTags();
+        fetchArticles('http://localhost:8080/TouristGuide_war_exploded/api/article/latest', currentPage, pageSize);
+    });
+</script>
+
+</body>
+</html>
