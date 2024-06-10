@@ -413,7 +413,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         List<ArticlePresentationDto> articles = new ArrayList<>();
-
+        int offset = (page - 1) * pageSize;
         try {
             connection = this.newConnection();
             preparedStatement = connection.prepareStatement(
@@ -429,10 +429,12 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
                             "ON a.article_id = article_activity.article_id " +
                             "INNER JOIN activity " +
                             "ON article_activity.activity_id = activity.activity_id " +
-                            "WHERE d.name = ? OR activity.tag = ?"
+                            "WHERE d.name = ? OR activity.tag = ? LIMIT ? OFFSET ?"
             );
             preparedStatement.setString(1,criterium);
             preparedStatement.setString(2,criterium);
+            preparedStatement.setInt(3,pageSize);
+            preparedStatement.setInt(4,offset);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ArticlePresentationDto article = new ArticlePresentationDto();
