@@ -59,7 +59,6 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             List<Integer> tags = createArticleDto.getTags();
             connection = this.newConnection();
 
-            // Update the article with the new information
             preparedStatement = connection.prepareStatement(
                     "UPDATE article SET title = ?, text = ?, autor_id = ?, destination_id = ? WHERE article_id = ?");
             preparedStatement.setString(1, createArticleDto.getTitle());
@@ -69,12 +68,10 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             preparedStatement.setInt(5, article_id);
             preparedStatement.executeUpdate();
 
-            // Delete the existing activities associated with the article
             preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
 
-            // Insert the new activities associated with the article
             for (Integer tag : tags) {
                 preparedStatement = connection.prepareStatement(
                         "INSERT INTO article_activity (article_id, activity_id) VALUES (?, ?)");

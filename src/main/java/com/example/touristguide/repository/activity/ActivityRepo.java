@@ -109,6 +109,11 @@ public class ActivityRepo extends MDBRepository implements ActivityRepoInteface 
         PreparedStatement preparedStatement = null;
         try {
             connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE activity_id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+
             preparedStatement = connection.prepareStatement("DELETE FROM activity WHERE activity_id = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();

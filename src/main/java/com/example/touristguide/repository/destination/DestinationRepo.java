@@ -56,6 +56,11 @@ public class DestinationRepo extends MDBRepository implements DestinationRepoInt
         PreparedStatement preparedStatement = null;
         try {
             connection = this.newConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM article WHERE destination_id = ?");
+            preparedStatement.setInt(1, destination_id);
+            preparedStatement.executeUpdate();
+
+
             preparedStatement = connection.prepareStatement("DELETE FROM destination WHERE destination_id = ?");
             preparedStatement.setInt(1, destination_id);
             preparedStatement.executeUpdate();
