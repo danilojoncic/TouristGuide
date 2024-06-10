@@ -21,6 +21,6 @@ public interface ArticleRepoInterface {
     List<ArticlePresentationDto> getLatestArticles(int page, int pageSize);
 
     //bez page i pageSize za ovo je namjerno
-    List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium);
+    List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium,int page,int pageSize);
 
 }

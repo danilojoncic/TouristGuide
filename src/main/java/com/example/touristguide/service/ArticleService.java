@@ -40,8 +40,8 @@ public class ArticleService {
         return articleRepoInterface.getLatestArticles(page,pageSize);
     }
 
-    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium){
-        return articleRepoInterface.getArticlesBasedOnCriterium(criterium);
+    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium,int page,int pageSize){
+        return articleRepoInterface.getArticlesBasedOnCriterium(criterium,page,pageSize);
     }
 
 

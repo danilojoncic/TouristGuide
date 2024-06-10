@@ -51,8 +51,10 @@ public class ArticleResource {
     @GET
     @Path("/parameter/{string}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getArticlesByTagOrDestination(@PathParam("string")String parameter){
-        return Response.ok(articleService.getArticlesBasedOnCriterium(parameter)).build();
+    public Response getArticlesByTagOrDestination(@PathParam("string")String parameter,
+                                                  @QueryParam("page")@DefaultValue("1")int page,
+                                                  @QueryParam("pageSize")@DefaultValue("10")int pageSize){
+        return Response.ok(articleService.getArticlesBasedOnCriterium(parameter, page, pageSize)).build();
     }
 
 

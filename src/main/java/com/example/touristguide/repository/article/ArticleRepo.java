@@ -408,7 +408,7 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
     }
 
     @Override
-    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium) {
+    public List<ArticlePresentationDto> getArticlesBasedOnCriterium(String criterium,int page, int pageSize) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
