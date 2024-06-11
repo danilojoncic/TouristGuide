@@ -116,22 +116,70 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
         }
     }
 
+    //ovaj rad sa transakcijama je mogao da se obidje postavljanjem cascade atributa prilikom brisanja iz baze
+    //uci se u radu :)
+
     @Override
     public void deleteUser(int user_id) {
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
+        PreparedStatement deleteArticleActivityStmt = null;
+        PreparedStatement deleteCommentStmt = null;
+        PreparedStatement deleteArticleStmt = null;
+        PreparedStatement deleteUserStmt = null;
+
         try {
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM user WHERE user_id = ?");
-            preparedStatement.setInt(1, user_id);
-            preparedStatement.executeUpdate();
+            connection.setAutoCommit(false);
+
+            deleteArticleActivityStmt = connection.prepareStatement(
+                    "DELETE AA FROM article_activity AA " +
+                            "JOIN article A ON AA.article_id = A.article_id " +
+                            "WHERE A.autor_id = ?"
+            );
+            deleteArticleActivityStmt.setInt(1, user_id);
+            deleteArticleActivityStmt.executeUpdate();
+
+            deleteCommentStmt = connection.prepareStatement(
+                    "DELETE C FROM comment C " +
+                            "JOIN article A ON C.article_id = A.article_id " +
+                            "WHERE A.autor_id = ?"
+            );
+            deleteCommentStmt.setInt(1, user_id);
+            deleteCommentStmt.executeUpdate();
+
+            deleteArticleStmt = connection.prepareStatement(
+                    "DELETE FROM article WHERE autor_id = ?"
+            );
+            deleteArticleStmt.setInt(1, user_id);
+            deleteArticleStmt.executeUpdate();
+
+            deleteUserStmt = connection.prepareStatement(
+                    "DELETE FROM user WHERE user_id = ?"
+            );
+            deleteUserStmt.setInt(1, user_id);
+            deleteUserStmt.executeUpdate();
+
+            connection.commit();
+
         } catch (SQLException e) {
             e.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
         } finally {
-            this.closeStatement(preparedStatement);
+            this.closeStatement(deleteArticleActivityStmt);
+            this.closeStatement(deleteCommentStmt);
+            this.closeStatement(deleteArticleStmt);
+            this.closeStatement(deleteUserStmt);
             this.closeConnection(connection);
         }
     }
+
+
 
     @Override
     public UserUpdateDto findUserById(int user_id) {

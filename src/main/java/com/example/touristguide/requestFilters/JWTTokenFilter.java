@@ -13,70 +13,72 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class JWTTokenFilter implements ContainerRequestFilter {
 
-    public static Map<String, Set<String>> PROTECTED_PATHS = new HashMap<>();
+    public static Map<String, List<String>> PROTECTED_PATHS = new HashMap<>();
 
     static {
-        //to do zasada su sve zasticene
-//        Set<String> methods = new HashSet<>();
-////        methods.add("GET");
-//        methods.add("DELETE");
-//        methods.add("POST");
-//        methods.add("PUT");
-//        PROTECTED_PATHS.put("/api/destination", methods);
-//        PROTECTED_PATHS.put("/api/article", methods);
-//        //samo za user stavljamo i get
-//        //methods.add("GET");
-//        PROTECTED_PATHS.put("/api/user",methods);
+        init();
+    }
+    private static void init() {
+        List<String> normalProtection = new ArrayList<>();
+        normalProtection.add("POST");
+        normalProtection.add("PUT");
+        normalProtection.add("DELETE");
+
+        //na nivou trenutnog zadatka neka ostane ovako
+        //normalno bi zastitio sve metode
+        List<String> fullProtection = new ArrayList<>(normalProtection);
+        fullProtection.add("GET");
+        PROTECTED_PATHS.put("destination", normalProtection);
+        PROTECTED_PATHS.put("article", normalProtection);
+        PROTECTED_PATHS.put("user",fullProtection);
     }
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String path = requestContext.getUriInfo().getPath();
         String method = requestContext.getMethod();
-        System.out.println("STARTED FILTERING: " + path + " : " + method);
+        System.out.println("PATH " + path);
+        System.out.println("METHOD " + method);
 
         if (isProtectedPath(path, method)) {
-            System.out.println("ROUTE IS PROTECTED");
+            System.out.println("Path is protected!");
             String authorizationHeader = requestContext.getHeaderString("Authorization");
 
             if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-                System.out.println("HEADER PRAZAN ILI NEMAMO BEARER UNAUTHORIZED");
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
                 return;
             }
 
             String token = authorizationHeader.substring("Bearer".length()).trim();
-            System.out.println("TOKEN: " + token);
 
             try {
                 Algorithm algorithm = Algorithm.HMAC256(JWTCoder.SECRET_KEY);
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT jwt = verifier.verify(token);
                 requestContext.setProperty("jwt", jwt);
-                System.out.println("JWT VERIFICATION SUCCESSFUL");
             } catch (JWTVerificationException exception) {
-                System.out.println("JWT VERIFICATION FAILED: " + exception.getMessage());
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
             }
-        } else {
-            System.out.println("ROUTE IS NOT PROTECTED");
+        }else{
+            System.out.println("Path is not protected!");
         }
     }
 
-    private static boolean isProtectedPath(String path, String method) {
-        System.out.println("CHECKING PROTECTED PATH: " + path + " : " + method);
-        Set<String> methods = PROTECTED_PATHS.get("/api/"+path);
-        boolean isProtected = methods != null && methods.contains(method);
-        System.out.println("IS PROTECTED: " + isProtected);
-        return isProtected;
+    private boolean isProtectedPath(String path, String method) {
+        for (Map.Entry<String, List<String>> entry : PROTECTED_PATHS.entrySet()) {
+            String protectedPath = entry.getKey();
+            List<String> methods = entry.getValue();
+
+            if (path.matches(protectedPath) && methods.contains(method)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

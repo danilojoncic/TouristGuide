@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tourist Guide - Users</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+    <style>
+        #add_user_button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Tourist Guide</a>
+    <a id="name">Welcome</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="articles.html">Articles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="destinations.html">Destinations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="users.html">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="log_out">Log out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Users</h2>
+    <button id="add_user_button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="users_table_body">
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_user_form">
+                    <div class="form-group">
+                        <label for="user_email">Email:</label>
+                        <input type="email" class="form-control" id="user_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_firstname">Firstname:</label>
+                        <input type="text" class="form-control" id="user_firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_lastname">Lastname:</label>
+                        <input type="text" class="form-control" id="user_lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_password">Password:</label>
+                        <input type="password" class="form-control" id="user_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_confirm_password">Confirm password:</label>
+                        <input type="password" class="form-control" id="user_confirm_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_type">Type:</label>
+                        <select class="form-control" id="user_type" required>
+                            <option value="editor">Editor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user_status">Status:</label>
+                        <select class="form-control" id="user_status" required>
+                            <option value="active">Active</option>
+                            <option value="blocked">Blocked</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit_user_form">
+                    <div class="form-group">
+                        <label for="edit_user_email">Email:</label>
+                        <input type="email" class="form-control" id="edit_user_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_user_firstname">Firstname:</label>
+                        <input type="text" class="form-control" id="edit_user_firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_user_lastname">Lastname:</label>
+                        <input type="text" class="form-control" id="edit_user_lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_user_type">Type:</label>
+                        <select class="form-control" id="edit_user_type" required>
+                            <option value="editor">Editor</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var editingUserId = null;
+    $(document).ready(function () {
+        fetchAllUsers();
+        setName();
+        if(!(localStorage.getItem("jwt"))){
+            window.location.href="../latest.html"
+        }
+        if(localStorage.getItem("tip") !== "admin"){
+            window.location.href = "articles.html"
+        }
+    });
+
+    function setName(){
+        $("#name").text("Welcome: " + localStorage.getItem("firstname") + " " + localStorage.getItem("lastname") +
+            " your role as staff is: " + localStorage.getItem("tip"));
+    }
+
+    $("#log_out").click(function (){
+        localStorage.clear();
+        window.location.href = "../latest.html";
+    });
+
+    function fetchAllUsers() {
+        $.ajax({
+            //da ponovo, svjesno stavljam 999
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/user?pageSize=999',
+            type: 'GET',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+            },
+            success: function (users) {
+                $('#users_table_body').empty();
+                users.forEach(function (user) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(user.email));
+                    row.append($('<td>').text(user.firstname + " " + user.lastname));
+                    row.append($('<td>').text(user.tip));
+                    row.append($('<td>').text(user.status));
+                    var actions = $('<td>');
+                    actions.append('<button onclick="openEditModal(' + user.user_id + ')" class="btn btn-warning">Edit</button>');
+                    actions.append(' <button onclick="deleteUser(' + user.user_id + ')" class="btn btn-danger">Delete</button>');
+                    row.append(actions);
+                    $('#users_table_body').append(row);
+                });
+            },
+            error: function () {
+                alert('Error: Unable to fetch users.');
+            }
+        });
+    }
+
+    function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user? Deleting the user will" +
+            " delete all of his written articles fron our platform")) {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/user/' + userId,
+                type: 'DELETE',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+                },
+                success: function (response) {
+                    alert('User deleted successfully!');
+                    fetchAllUsers();
+                },
+                error: function () {
+                    alert('Error: Unable to delete user.');
+                }
+            });
+        }
+    }
+
+    function openEditModal(userId) {
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/user/' + userId,
+            type: 'GET',
+            success: function (user) {
+                $('#edit_user_email').val(user.email);
+                $('#edit_user_firstname').val(user.firstname);
+                $('#edit_user_lastname').val(user.lastname);
+                $('#edit_user_password').val('');
+                $('#edit_user_type').val(user.tip);
+                editingUserId = userId;
+                $('#editUserModal').modal('show');
+            },
+            error: function () {
+                alert('Error: Unable to fetch user details.');
+            }
+        });
+    }
+
+    $('#add_user_form').submit(function (event) {
+        event.preventDefault();
+
+        var email = $('#user_email').val();
+        var firstname = $('#user_firstname').val();
+        var lastname = $('#user_lastname').val();
+
+        var password = $('#user_password').val();
+        var confirm_password = $('#user_confirm_password').val();
+
+        if(password !== confirm_password){
+            alert("Passwords need to match!")
+        }
+
+        var type = $('#user_type').val();
+
+        password = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
+        var data = {
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            password: password,
+            tip: type,
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/user',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+            },
+            success: function (response) {
+                alert('User added successfully!');
+                $('#addUserModal').modal('hide');
+                fetchAllUsers();
+            },
+            error: function () {
+                alert('Error: Unable to save user.');
+            }
+        });
+    });
+
+    $('#edit_user_form').submit(function (event) {
+        event.preventDefault();
+
+        var email = $('#edit_user_email').val();
+        var firstname = $('#edit_user_firstname').val();
+        var lastname = $('#edit_user_lastname').val();
+        var type = $('#edit_user_type').val();
+
+        var data = {
+            user_id: editingUserId,
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            tip: type,
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/user/' + editingUserId,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+            },
+            success: function (response) {
+                alert('User updated successfully!');
+                $('#editUserModal').modal('hide');
+                fetchAllUsers();
+                editingUserId = null;
+                $('#edit_user_form')[0].reset();
+            },
+            error: function () {
+                alert('Error: Unable to update user.');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

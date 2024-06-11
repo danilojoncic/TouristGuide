@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tourist Guide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        #add_article_button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Tourist Guide</a>
+    <a id="name">Welcome</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="articles.html">Articles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="destinations.html">Destinations</a>
+            </li>
+            <li class="nav-item">
+                <a id="users_nav_item" class="nav-link" href="users.html">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="log_out">Log out</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Articles</h2>
+    <button id="add_article_button" class="btn btn-primary" data-toggle="modal" data-target="#addArticleModal">Add Article</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="articles_table_body">
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="addArticleModal" tabindex="-1" role="dialog" aria-labelledby="addArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addArticleModalLabel">Add Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_article_form">
+                    <div class="form-group">
+                        <label for="article_title">Title:</label>
+                        <input type="text" class="form-control" id="article_title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="text_field">Text:</label>
+                        <input type="text" class="form-control" id="text_field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_destination">Destination:</label>
+                        <select class="form-control" id="article_destination" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="article_activities">Activities:</label>
+                        <select multiple class="form-control" id="article_activities">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="editArticleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editArticleModalLabel">Edit Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit_article_form">
+                    <div class="form-group">
+                        <label for="edit_article_title">Title:</label>
+                        <input type="text" class="form-control" id="edit_article_title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_text_field">Text:</label>
+                        <input type="text" class="form-control" id="edit_text_field" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_article_destination">Destination:</label>
+                        <select class="form-control" id="edit_article_destination" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_article_activities">Activities:</label>
+                        <select multiple class="form-control" id="edit_article_activities">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var editingArticleId = null;
+
+    $(document).ready(function () {
+        fetchAllDestinations();
+        fetchAllActivities();
+        fetchAllArticles();
+        setName();
+        if(!(localStorage.getItem("jwt"))){
+            window.location.href="../latest.html"
+        }
+        if (localStorage.getItem("tip") === "editor") {
+            $("#users_nav_item").hide();
+        }
+    });
+
+    function setName(){
+        $("#name").text("Welcome: " + localStorage.getItem("firstname") + " " + localStorage.getItem("lastname") +
+            " your role as staff is: " + localStorage.getItem("tip"));
+    }
+
+    $("#log_out").click(function (){
+        localStorage.clear();
+        window.location.href = "../latest.html";
+    });
+
+    function fetchAllDestinations() {
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination?pageSize=999',
+            type: 'GET',
+            success: function (destinations) {
+                var selectAdd = $('#article_destination');
+                var selectEdit = $('#edit_article_destination');
+                selectAdd.empty();
+                selectEdit.empty();
+                destinations.forEach(function (destination) {
+                    selectAdd.append($('<option>').attr('value', destination.destination_id).text(destination.name));
+                    selectEdit.append($('<option>').attr('value', destination.destination_id).text(destination.name));
+                });
+            },
+            error: function () {
+                alert('Error: Unable to fetch destinations.');
+            }
+        });
+    }
+
+    function fetchAllActivities() {
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity',
+            type: 'GET',
+            success: function (activities) {
+                var selectAdd = $('#article_activities');
+                var selectEdit = $('#edit_article_activities');
+                selectAdd.empty();
+                selectEdit.empty();
+                activities.forEach(function (activity) {
+                    selectAdd.append($('<option>').attr('value', activity.activity_id).text(activity.tag));
+                    selectEdit.append($('<option>').attr('value', activity.activity_id).text(activity.tag));
+                });
+            },
+            error: function () {
+                alert('Error: Unable to fetch activities.');
+            }
+        });
+    }
+
+    function fetchAllArticles() {
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/article?pageSize=999',
+            type: 'GET',
+            success: function (articles) {
+                $('#articles_table_body').empty();
+                articles.forEach(function (article) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(article.title));
+                    row.append($('<td>').text(article.author_name));
+                    row.append($('<td>').text(new Date(article.created_at).toDateString()));
+                    var actions = $('<td>');
+                    actions.append('<a href="../article.html?id=' + article.article_id + '" target="_blank" class="btn btn-primary">Read</a>');
+                    actions.append(' <button onclick="openEditModal(' + article.article_id + ')" class="btn btn-warning">Edit</button>');
+                    actions.append(' <button onclick="deleteArticle(' + article.article_id + ')" class="btn btn-danger">Delete</button>');
+                    row.append(actions);
+                    $('#articles_table_body').append(row);
+                });
+            },
+            error: function () {
+                alert('Error: Unable to fetch articles.');
+            }
+        });
+    }
+
+    function deleteArticle(articleId) {
+        if (confirm("Are you sure you want to delete this article?")) {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/article/' + articleId,
+                type: 'DELETE',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt")); // Add JWT token to Authorization header
+                },
+                success: function (response) {
+                    alert('Article deleted successfully!');
+                    fetchAllArticles();
+                },
+                error: function () {
+                    alert('Error: Unable to delete article.');
+                }
+            });
+        }
+    }
+
+    function openEditModal(articleId) {
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/article/' + articleId,
+            type: 'GET',
+            success: function (article) {
+                $('#edit_article_title').val(article.title);
+                $('#edit_text_field').val(article.text);
+                $('#edit_article_destination').val(article.destination_id);
+                $('#edit_article_activities').val(article.tags);
+                editingArticleId = articleId;
+                $('#editArticleModal').modal('show');
+            },
+            error: function () {
+                alert('Error: Unable to fetch article details.');
+            }
+        });
+    }
+
+    $('#add_article_form').submit(function (event) {
+        event.preventDefault();
+
+        var title = $('#article_title').val();
+        var text = $('#text_field').val();
+        var destination_id = $('#article_destination').val();
+        var activities = $('#article_activities').val();
+        var authorId = localStorage.getItem("user_id");
+
+        var data = {
+            title: title,
+            text: text,
+            autor_id: authorId,
+            destination_id: destination_id,
+            tags: activities
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/article',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt")); // Add JWT token to Authorization header
+            },
+            success: function (response) {
+                alert('Article added successfully!');
+                $('#addArticleModal').modal('hide');
+                fetchAllArticles();
+                $('#add_article_form')[0].reset();
+            },
+            error: function () {
+                alert('Error: Unable to save article.');
+            }
+        });
+    });
+
+    $('#edit_article_form').submit(function (event) {
+        event.preventDefault();
+
+        var title = $('#edit_article_title').val();
+        var text = $('#edit_text_field').val();
+        var destination_id = $('#edit_article_destination').val();
+        var activities = $('#edit_article_activities').val();
+
+        var data = {
+            title: title,
+            text: text,
+            destination_id: destination_id,
+            tags: activities
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/article/' + editingArticleId,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt")); // Add JWT token to Authorization header
+            },
+            success: function (response) {
+                alert('Article updated successfully!');
+                $('#editArticleModal').modal('hide');
+                fetchAllArticles();
+                editingArticleId = null;
+                $('#edit_article_form')[0].reset();
+            },
+            error: function () {
+                alert('Error: Unable to update article.');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
