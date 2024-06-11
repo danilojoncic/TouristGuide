@@ -56,12 +56,27 @@ public class DestinationRepo extends MDBRepository implements DestinationRepoInt
         PreparedStatement preparedStatement = null;
         try {
             connection = this.newConnection();
-            preparedStatement = connection.prepareStatement("DELETE FROM article WHERE destination_id = ?");
-            preparedStatement.setInt(1, destination_id);
-            preparedStatement.executeUpdate();
-
-
-            preparedStatement = connection.prepareStatement("DELETE FROM destination WHERE destination_id = ?");
+            preparedStatement = connection.prepareStatement("BEGIN TRANSACTION;\n" +
+                    "\n" +
+                    "SET @destination_id = ?;\n" +
+                    "\n" +
+                    "DELETE AA\n" +
+                    "FROM Article_Activity AA\n" +
+                    "JOIN Article A ON AA.article_id = A.article_id\n" +
+                    "WHERE A.destination_id = @destination_id;\n" +
+                    "\n" +
+                    "DELETE C\n" +
+                    "FROM Comment C\n" +
+                    "JOIN Article A ON C.article_id = A.article_id\n" +
+                    "WHERE A.destination_id = @destination_id;\n" +
+                    "\n" +
+                    "DELETE FROM Article\n" +
+                    "WHERE destination_id = @destination_id;\n" +
+                    "\n" +
+                    "DELETE FROM Destination\n" +
+                    "WHERE destination_id = @destination_id;\n" +
+                    "\n" +
+                    "COMMIT TRANSACTION;\n");
             preparedStatement.setInt(1, destination_id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
