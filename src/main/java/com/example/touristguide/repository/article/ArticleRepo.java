@@ -60,12 +60,11 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             connection = this.newConnection();
 
             preparedStatement = connection.prepareStatement(
-                    "UPDATE article SET title = ?, text = ?, autor_id = ?, destination_id = ? WHERE article_id = ?");
+                    "UPDATE article SET title = ?, text = ?, destination_id = ? WHERE article_id = ?");
             preparedStatement.setString(1, createArticleDto.getTitle());
             preparedStatement.setString(2, createArticleDto.getText());
-            preparedStatement.setInt(3, createArticleDto.getAutor_id());
-            preparedStatement.setInt(4, createArticleDto.getDestination_id());
-            preparedStatement.setInt(5, article_id);
+            preparedStatement.setInt(3, createArticleDto.getDestination_id());
+            preparedStatement.setInt(4, article_id);
             preparedStatement.executeUpdate();
 
             preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
