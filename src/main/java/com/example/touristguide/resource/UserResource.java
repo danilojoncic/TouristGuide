@@ -49,8 +49,12 @@ public class UserResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid CreateUserDto createUserDto){
-        userService.addUser(createUserDto);
-        return Response.ok("User with credentials: " + createUserDto.getFirstname() + " " + createUserDto.getLastname() + " has been added").build();
+        if(userService.addUser(createUserDto)){
+            return Response.ok("User with credentials: " + createUserDto.getFirstname() + " " + createUserDto.getLastname() + " has been added").build();
+        }else{
+            return Response.status(409,"user with same credentials already exists!").build();
+
+        }
     }
 
     @DELETE

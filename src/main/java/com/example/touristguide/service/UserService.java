@@ -27,9 +27,14 @@ public class UserService {
         return userRepoInterface.findUserByLogin(userLoginDto);
     }
 
-    //kasnije dodati provjeru dodavanja duplikata
-    public void addUser(CreateUserDto createUserDto){
+    public boolean addUser(CreateUserDto createUserDto){
+        UserLoginDto userLoginDto = new UserLoginDto(createUserDto.getEmail(), createUserDto.getPassword());
+        if(userRepoInterface.findUserByLogin(userLoginDto) != null){
+            //vec sam pronasao nekog sa tim kredencijalima
+            return false;
+        }
         userRepoInterface.addUser(createUserDto);
+        return true;
     }
 
 
