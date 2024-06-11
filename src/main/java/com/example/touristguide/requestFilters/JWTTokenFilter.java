@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,11 +27,15 @@ public class JWTTokenFilter implements ContainerRequestFilter {
     static {
         //to do zasada su sve zasticene
 //        Set<String> methods = new HashSet<>();
-//        methods.add("GET");
+////        methods.add("GET");
 //        methods.add("DELETE");
 //        methods.add("POST");
 //        methods.add("PUT");
 //        PROTECTED_PATHS.put("/api/destination", methods);
+//        PROTECTED_PATHS.put("/api/article", methods);
+//        //samo za user stavljamo i get
+//        //methods.add("GET");
+//        PROTECTED_PATHS.put("/api/user",methods);
     }
 
     @Override
