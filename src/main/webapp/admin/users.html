@@ -189,6 +189,7 @@
                     var actions = $('<td>');
                     actions.append('<button onclick="openEditModal(' + user.user_id + ')" class="btn btn-warning">Edit</button>');
                     actions.append(' <button onclick="deleteUser(' + user.user_id + ')" class="btn btn-danger">Delete</button>');
+                    actions.append(' <button onclick="changeUserStatus(' + user.user_id + ', \'' + user.status + '\')" class="btn btn-info">' + (user.status === 'active' ? 'Block' : 'Activate') + '</button>');
                     row.append(actions);
                     $('#users_table_body').append(row);
                 });
@@ -197,6 +198,25 @@
                 alert('Error: Unable to fetch users.');
             }
         });
+    }
+    function changeUserStatus(userId, status) {
+        var newStatus = status === 'active' ? 'blocked' : 'active';
+        if (confirm("Are you sure you want to " + newStatus + " this user?")) {
+            $.ajax({
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/user/' + userId + '/' + newStatus,
+                type: 'PUT',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
+                },
+                success: function (response) {
+                    alert('User status changed successfully!');
+                    fetchAllUsers();
+                },
+                error: function () {
+                    alert('Error: Unable to change user status.');
+                }
+            });
+        }
     }
 
     function deleteUser(userId) {
