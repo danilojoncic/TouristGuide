@@ -67,7 +67,8 @@ public class JWTTokenFilter implements ContainerRequestFilter {
                     return;
                 }
 
-                if (path.equals("user") && (!claim.toString().equals("admin"))){
+
+                if(path.contains("user") && (!claim.asString().equals("admin"))){
                     requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
                     return;
                 }

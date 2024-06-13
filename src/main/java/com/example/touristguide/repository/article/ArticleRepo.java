@@ -23,33 +23,55 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         try {
             List<Integer> tags = createArticleDto.getTags();
             connection = this.newConnection();
+            connection.setAutoCommit(false);
+
             preparedStatement = connection.prepareStatement(
-                    "INSERT INTO article (article_id,title,text,visit_count,autor_id,destination_id)"
-                            + "VALUES(NULL,?,?,0,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1,createArticleDto.getTitle());
-            preparedStatement.setString(2,createArticleDto.getText());
-            preparedStatement.setInt(3,createArticleDto.getAutor_id());
-            preparedStatement.setInt(4,createArticleDto.getDestination_id());
+                    "INSERT INTO article (article_id, title, text, visit_count, autor_id, destination_id) "
+                            + "VALUES (NULL, ?, ?, 0, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, createArticleDto.getTitle());
+            preparedStatement.setString(2, createArticleDto.getText());
+            preparedStatement.setInt(3, createArticleDto.getAutor_id());
+            preparedStatement.setInt(4, createArticleDto.getDestination_id());
             preparedStatement.executeUpdate();
 
             generatedKeys = preparedStatement.getGeneratedKeys();
-            if(generatedKeys.next()){
+            if (generatedKeys.next()) {
                 int article_id = generatedKeys.getInt(1);
+                preparedStatement.close();
+
+                preparedStatement = connection.prepareStatement(
+                        "INSERT INTO article_activity (article_id, activity_id) VALUES (?, ?)");
                 for (Integer tag : tags) {
-                    preparedStatement = connection.prepareStatement("INSERT INTO article_activity (article_id,activity_id)"
-                            +"VALUES (?,?)");
-                    preparedStatement.setInt(1,article_id);
-                    preparedStatement.setInt(2,tag);
-                    preparedStatement.execute();
+                    preparedStatement.setInt(1, article_id);
+                    preparedStatement.setInt(2, tag);
+                    preparedStatement.addBatch();
+                }
+                preparedStatement.executeBatch();
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
                 }
             }
-        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            if (generatedKeys != null) {
+                try {
+                    generatedKeys.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             this.closeStatement(preparedStatement);
             this.closeConnection(connection);
         }
     }
+
 
     @Override
     public void editArticle(int article_id, CreateArticleDto createArticleDto) {
@@ -58,6 +80,8 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         try {
             List<Integer> tags = createArticleDto.getTags();
             connection = this.newConnection();
+            connection.setAutoCommit(false); // Start transaction
+
 
             preparedStatement = connection.prepareStatement(
                     "UPDATE article SET title = ?, text = ?, destination_id = ? WHERE article_id = ?");
@@ -66,25 +90,39 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
             preparedStatement.setInt(3, createArticleDto.getDestination_id());
             preparedStatement.setInt(4, article_id);
             preparedStatement.executeUpdate();
+            preparedStatement.close();
+
 
             preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
+            preparedStatement.close();
 
+            preparedStatement = connection.prepareStatement(
+                    "INSERT INTO article_activity (article_id, activity_id) VALUES (?, ?)");
             for (Integer tag : tags) {
-                preparedStatement = connection.prepareStatement(
-                        "INSERT INTO article_activity (article_id, activity_id) VALUES (?, ?)");
                 preparedStatement.setInt(1, article_id);
                 preparedStatement.setInt(2, tag);
-                preparedStatement.execute();
+                preparedStatement.addBatch();
             }
+            preparedStatement.executeBatch();
+
+            connection.commit();
         } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
             e.printStackTrace();
         } finally {
             this.closeStatement(preparedStatement);
             this.closeConnection(connection);
         }
     }
+
 
 
 
@@ -94,27 +132,39 @@ public class ArticleRepo extends MDBRepository implements ArticleRepoInterface {
         PreparedStatement preparedStatement = null;
         try {
             connection = this.newConnection();
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement("DELETE FROM article_activity WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
-
+            preparedStatement.close();
 
             preparedStatement = connection.prepareStatement("DELETE FROM comment WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
+            preparedStatement.close();
 
             preparedStatement = connection.prepareStatement("DELETE FROM article WHERE article_id = ?");
             preparedStatement.setInt(1, article_id);
             preparedStatement.executeUpdate();
+            preparedStatement.close();
 
+            connection.commit();
         } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
+            }
             e.printStackTrace();
         } finally {
             this.closeStatement(preparedStatement);
             this.closeConnection(connection);
         }
     }
+
 
     @Override
     public ArticlePresentationDto getOneArticle(int article_id) {

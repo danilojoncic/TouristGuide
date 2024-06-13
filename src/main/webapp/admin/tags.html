@@ -42,15 +42,13 @@
 </nav>
 
 <div class="container">
-    <h2>Destinations</h2>
+    <h2>Activities</h2>
     <button id="add_destination_button" class="btn btn-primary" data-toggle="modal" data-target="#addDestinationModal">Add Destination</button>
     <table class="table">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>Activity</th>
         </tr>
         </thead>
         <tbody id="destinations_table_body">
@@ -62,7 +60,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addDestinationModalLabel">Add Destination</h5>
+                <h5 class="modal-title" id="addDestinationModalLabel">Add Activity</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,10 +70,6 @@
                     <div class="form-group">
                         <label for="destination_name">Name:</label>
                         <input type="text" class="form-control" id="destination_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="destination_description">Description:</label>
-                        <input type="text" class="form-control" id="destination_description" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -88,7 +82,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editDestinationModalLabel">Edit Destination</h5>
+                <h5 class="modal-title" id="editDestinationModalLabel">Edit Activity</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -98,10 +92,6 @@
                     <div class="form-group">
                         <label for="edit_destination_name">Name:</label>
                         <input type="text" class="form-control" id="edit_destination_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_destination_description">Description:</label>
-                        <input type="text" class="form-control" id="edit_destination_description" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </form>
@@ -113,7 +103,7 @@
 <script>
     var editingDestinationId;
     $(document).ready(function () {
-        fetchAllDestinations();
+        fetchAllTags()
         setName();
         if(!(localStorage.getItem("jwt"))){
             window.location.href="../latest.html"
@@ -132,58 +122,56 @@
         window.location.href = "../latest.html";
     });
 
-    function fetchAllDestinations() {
+    function fetchAllTags() {
         $.ajax({
             //da svjesno stavljam 999
-            url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination?pageSize=999',
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity?pageSize=999',
             type: 'GET',
-            success: function (destinations) {
+            success: function (activity) {
                 $('#destinations_table_body').empty();
-                destinations.forEach(function (destination) {
+                activity.forEach(function (activity) {
                     var row = $('<tr>');
-                    row.append($('<td>').text(destination.destination_id));
-                    row.append($('<td>').text(destination.name));
-                    row.append($('<td>').text(destination.description));
+                    row.append($('<td>').text(activity.activity_id));
+                    row.append($('<td>').text(activity.tag));
                     var actions = $('<td>');
-                    actions.append(' <button onclick="openEditModal(' + destination.destination_id + ')" class="btn btn-warning">Edit</button>');
-                    actions.append(' <button onclick="deleteDestination(' + destination.destination_id + ')" class="btn btn-danger">Delete</button>');
+                    actions.append(' <button onclick="openEditModal(' + activity.activity_id + ')" class="btn btn-warning">Edit</button>');
+                    actions.append(' <button onclick="deleteDestination(' + activity.activity_id + ')" class="btn btn-danger">Delete</button>');
                     row.append(actions);
                     $('#destinations_table_body').append(row);
                 });
             },
             error: function () {
-                alert('Error: Unable to fetch destinations.');
+                alert('Error: Unable to fetch activities.');
             }
         });
     }
     function deleteDestination(id){
-        if(confirm("Are you sure you want to delete this destination? Deleting it will also delete " +
-            "all articles,comments and activities tied to the article and destination!")){
+        if(confirm("Are you sure you want to delete this activity? Deleting it will also delete " +
+            "all articles and comments tied to the article and activity!")){
             $.ajax({
-                url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination/' + id,
+                url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity/' + id,
                 type: 'DELETE',
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("jwt"));
                 },
                 success: function (response) {
-                    alert('Destination deleted successfully!');
-                    fetchAllDestinations();
+                    alert('Activity deleted successfully!');
+                    fetchAllTags();
                 },
                 error: function () {
-                    alert('Error: Unable to delete destination.');
+                    alert('Error: Unable to delete activity.');
                 }
             });
         }
     }
 
-    function openEditModal(destination_id) {
+    function openEditModal(activity_id) {
         $.ajax({
-            url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination/' + destination_id,
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity/' + activity_id,
             type: 'GET',
-            success: function (destination) {
-                $('#edit_destination_name').val(destination.name);
-                $('#edit_destination_description').val(destination.description);
-                editingDestinationId = destination.destination_id;
+            success: function (activity) {
+                $('#edit_destination_name').val(activity.tag);
+                editingDestinationId = activity.activity_id
                 $('#editDestinationModal').modal('show');
             },
             error: function () {
@@ -195,17 +183,15 @@
     $('#add_destination_form').submit(function (event) {
         event.preventDefault();
 
-        var name = $('#destination_name').val();
-        var descrption = $('#destination_description').val();
+        var tag = $('#destination_name').val();
 
 
         var data = {
-            name: name,
-            description: descrption,
+            tag: tag
         };
 
         $.ajax({
-            url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination',
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -226,17 +212,15 @@
     $('#edit_destination_form').submit(function (event) {
         event.preventDefault();
 
-        var name = $('#edit_destination_name').val();
-        var description = $('#edit_destination_description').val();
+        var tag = $('#edit_destination_name').val();
 
 
         var data = {
-            name: name,
-            description: description,
+            tag: tag,
         };
 
         $.ajax({
-            url: 'http://localhost:8080/TouristGuide_war_exploded/api/destination/' + editingDestinationId,
+            url: 'http://localhost:8080/TouristGuide_war_exploded/api/activity/' + editingDestinationId,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -246,11 +230,11 @@
             success: function (response) {
                 alert('Article updated successfully!');
                 $('#editDestinationModal').modal('hide');
-                fetchAllDestinations();
+                fetchAllTags();
                 editingDestinationId = null;
             },
             error: function () {
-                alert('Error: Unable to update destination.');
+                alert('Error: Unable to update activity.');
             }
         });
     });

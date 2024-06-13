@@ -37,14 +37,14 @@ public class ActivityResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateDestination(@PathParam("id")Integer id, @Valid CreateActivityDTO createActivityDTO){
         activityService.update(createActivityDTO,id);
-        return Response.ok("This destination has been updated!").build();
+        return Response.ok("This activity has been updated!").build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteDestination(@PathParam("id")Integer id){
         activityService.delete(id);
-        return Response.ok("This destinations has been deleted!").build();
+        return Response.ok("This activity has been deleted!").build();
     }
 
 
@@ -52,6 +52,6 @@ public class ActivityResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addDestination(@Valid CreateActivityDTO createActivityDTO){
         activityService.add(createActivityDTO);
-        return Response.ok("New destination has been added").build();
+        return Response.ok("New activity has been added").build();
     }
 }
