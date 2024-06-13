@@ -37,6 +37,7 @@ public class JWTTokenFilter implements ContainerRequestFilter {
         PROTECTED_PATHS.put("destination", normalProtection);
         PROTECTED_PATHS.put("article", normalProtection);
         PROTECTED_PATHS.put("user",fullProtection);
+        PROTECTED_PATHS.put("activity",normalProtection);
     }
 
     @Override
