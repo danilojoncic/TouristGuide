@@ -16,7 +16,6 @@ public class CommentService {
     }
 
     public void addCommentForArticle(int article_id, CreateCommentDto createCommentDto){
-        //kasnije dodati boolean da li je okej radi provjere
         commentRepoInterface.addComment(article_id,createCommentDto);
     }
 

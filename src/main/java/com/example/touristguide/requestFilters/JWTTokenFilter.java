@@ -3,6 +3,7 @@ package com.example.touristguide.requestFilters;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
@@ -30,8 +31,7 @@ public class JWTTokenFilter implements ContainerRequestFilter {
         normalProtection.add("PUT");
         normalProtection.add("DELETE");
 
-        //na nivou trenutnog zadatka neka ostane ovako
-        //normalno bi zastitio sve metode
+
         List<String> fullProtection = new ArrayList<>(normalProtection);
         fullProtection.add("GET");
         PROTECTED_PATHS.put("destination", normalProtection);
@@ -54,13 +54,24 @@ public class JWTTokenFilter implements ContainerRequestFilter {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
                 return;
             }
-
             String token = authorizationHeader.substring("Bearer".length()).trim();
 
             try {
                 Algorithm algorithm = Algorithm.HMAC256(JWTCoder.SECRET_KEY);
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT jwt = verifier.verify(token);
+                Claim claim = jwt.getClaim("tip");
+
+                if(claim.isNull() || claim.asString().isEmpty()){
+                    requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+                    return;
+                }
+
+                if (path.equals("user") && (!claim.toString().equals("admin"))){
+                    requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+                    return;
+                }
+
                 requestContext.setProperty("jwt", jwt);
             } catch (JWTVerificationException exception) {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());

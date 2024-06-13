@@ -35,11 +35,9 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
             preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email = ? AND password = ?");
             preparedStatement.setString(1, userLoginDto.getEmail());
             preparedStatement.setString(2, userLoginDto.getPassword());
-            System.out.println("Prepared statement " + preparedStatement.toString());
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                System.out.println("REPO LAYER MAKING USER");
                 user = new User();
                 user.setFirstname(resultSet.getString("firstname"));
                 user.setLastname(resultSet.getString("lastname"));
@@ -116,8 +114,7 @@ public class UserRepo extends MDBRepository implements UserRepoInterface {
         }
     }
 
-    //ovaj rad sa transakcijama je mogao da se obidje postavljanjem cascade atributa prilikom brisanja iz baze
-    //uci se u radu :)
+
 
     @Override
     public void deleteUser(int user_id) {

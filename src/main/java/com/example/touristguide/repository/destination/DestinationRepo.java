@@ -50,6 +50,7 @@ public class DestinationRepo extends MDBRepository implements DestinationRepoInt
     }
 
 
+    //ovaj pristup sa "transakcijom" sam koristio za brisanje destinacije i brisanje usera
     @Override
     public void deleteDestination(int destination_id) {
         Connection connection = null;
